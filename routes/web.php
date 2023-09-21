@@ -18,4 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('norma/pdf', [CandidatoController::class, 'pdf'])->name('norma.pdf');
 Route::resource('candidato', CandidatoController::class);

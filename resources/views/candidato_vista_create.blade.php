@@ -7,9 +7,14 @@
 </head>
 
 <body>
+    <header>
+        <div class="menu">
+            <a href="/candidato">Ver candidatos</a>
+            <a href="/candidato/create">Agregar un nuevo candidato</a>
+        </div>
+    </header>
     <h1>Formulario para crear un nuevo candidato</h1>
-
-    <form action="/candidato" method="POST">
+    <form action="{{route('candidato.index')}}" method="POST">
         @csrf
         <label for="candidato_nombre">Nombre: </label>
         <input type="text" name="candidato_nombre" />

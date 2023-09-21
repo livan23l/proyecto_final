@@ -12,7 +12,9 @@ class CandidatoController extends Controller
      */
     public function index()
     {
-        return view("candidato_vista_index");
+        //$candidatos = Candidato::all();
+        $candidatos = Candidato::select('nombre', 'f_nac', 'partido', 'descripcion')->get();
+        return view("candidato_vista_index", compact('candidatos'));
     }
 
     /**
@@ -42,7 +44,7 @@ class CandidatoController extends Controller
         $contacto->descripcion = $request->candidato_descripcion;
         $contacto->save();
         
-        return view("candidato_vista_index");
+        return redirect()->route("candidato.index");
     }
 
     /**
