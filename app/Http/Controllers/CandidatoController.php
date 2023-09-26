@@ -13,8 +13,8 @@ class CandidatoController extends Controller
     public function index()
     {
         //$candidatos = Candidato::all();
-        $candidatos = Candidato::select('nombre', 'f_nac', 'partido', 'descripcion')->get();
-        return view("candidato_vista_index", compact('candidatos'));
+        $candidatos = Candidato::select('id', 'nombre', 'f_nac', 'partido', 'descripcion')->get();
+        return view("candidato.candidato_vista_index", compact('candidatos'));
     }
 
     /**
@@ -22,7 +22,7 @@ class CandidatoController extends Controller
      */
     public function create()
     {
-        return view("candidato_vista_create");
+        return view("candidato.candidato_vista_create");
     }
 
     /**
@@ -52,7 +52,7 @@ class CandidatoController extends Controller
      */
     public function show(Candidato $candidato)
     {
-        //
+        return view("candidato.candidato_vista_show", compact('candidato'));
     }
 
     /**
@@ -60,7 +60,7 @@ class CandidatoController extends Controller
      */
     public function edit(Candidato $candidato)
     {
-        //
+        return view("candidato.candidato_vista_edit", compact('candidato'));
     }
 
     /**
@@ -68,7 +68,20 @@ class CandidatoController extends Controller
      */
     public function update(Request $request, Candidato $candidato)
     {
-        //
+        $request->validate([
+            'candidato_nombre' => 'required|string|max:255',
+            'candidato_f_nac' => 'required|date',
+            'candidato_partido' => 'required|string|max:255',
+            'candidato_descripcion' => 'required|string'
+        ]);
+    
+        $candidato->nombre = $request->candidato_nombre;
+        $candidato->f_nac = $request->candidato_f_nac;
+        $candidato->partido = $request->candidato_partido;
+        $candidato->descripcion = $request->candidato_descripcion;
+        $candidato->save();
+        
+        return redirect()->route("candidato.index");
     }
 
     /**
@@ -76,6 +89,7 @@ class CandidatoController extends Controller
      */
     public function destroy(Candidato $candidato)
     {
-        //
+        $candidato->delete();
+        return redirect()->route("candidato.index");
     }
 }

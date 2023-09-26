@@ -13,27 +13,21 @@
             <a href="/candidato/create">Agregar un nuevo candidato</a>
         </div>
     </header>
-    <h1>Candidatos registrados:</h1>
+    <h1>Información del candidato '{{$candidato->nombre}}':</h1>
     <table>
         <thead>
             <throw>
-                <td>Nombre</td>
                 <td>Fecha de nacimiento</td>
                 <td>Partido</td>
                 <td>Descripción</td>
             </throw>
         </thead>
         <tbody>
-            @foreach ($candidatos as $candidato)
-                <tr>
-                    <a href="{{route('candidato.show'), $candidato}}">
-                        <td>{{$candidato->nombre}}</td>
-                        <td>{{$candidato->f_nac}}</td>
-                        <td>{{$candidato->partido}}</td>
-                        <td>{{$candidato->descripcion}}</td>
-                    </a>
-                </tr>
-            @endforeach
+            <tr>
+                <td>{{$candidato->f_nac}}</td>
+                <td>{{$candidato->partido}}</td>
+                <td>{{$candidato->descripcion}}</td>
+            </tr>
         </tbody>
     </table>
 </body>
