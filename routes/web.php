@@ -20,3 +20,13 @@ Route::get('/', function () {
 
 // Route::get('norma/pdf', [CandidatoController::class, 'pdf'])->name('norma.pdf');
 Route::resource('candidato', CandidatoController::class);
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
