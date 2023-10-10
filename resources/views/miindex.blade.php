@@ -16,13 +16,13 @@
 
   <!-- Card section -->
   <section class="section">
-    <div class="row">
+    <div class="row justify-content-center align-items-center">
       <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
         <div class="card">
           <img src="{{ asset('NiceAdmin/assets/img/card.jpg') }}" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">Card with an image on top</h5>
-            <p class="card-text">Vota de manera <i>electrónica, fácil y segura</i> por los candidatos a la presidencia de México y por los candidatos a diputados</p>
+            <h5 class="card-title">Votación electrónica</h5>
+            <p class="card-text">Vota de manera <b><i>electrónica, fácil y segura</i></b> por los candidatos a la presidencia de México</p>
           </div>
         </div>
       </div>
@@ -41,8 +41,8 @@
         <div class="card">
           <img src="{{ asset('NiceAdmin/assets/img/card.jpg') }}" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">Card with an image on top</h5>
-            <p class="card-text">Vota de manera <i>electrónica, fácil y segura</i> por los candidatos a la presidencia de México y por los candidatos a diputados</p>
+            <h5 class="card-title">Foro de propuestas</h5>
+            <p class="card-text"><b>Comparte</b> tus propias propuestas de ley en un foro al resto de ciudadanos y vota por las que más te gusten.</p>
           </div>
         </div>
       </div>
@@ -51,8 +51,8 @@
         <div class="card">
           <img src="{{ asset('NiceAdmin/assets/img/card.jpg') }}" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">Recomendación de noticias</h5>
-            <p class="card-text">Infórmate de las noticias del momento con nuestro <i>sistema de recomendación de noticias</i> basado en tus preferencias.</p>
+            <h5 class="card-title">Valida tu cuenta utilizando tu INE</h5>
+            <p class="card-text">Valida tu cuenta de forma <b>segura</b> y <b>fácil</b> por medio de tu identificación oficial INE o IFE.</p>
           </div>
         </div>
       </div>
@@ -61,37 +61,49 @@
   </section>
   <!-- End Card Section -->
 
-  <section class="section">
-    <div class="col-lg-5">
+  <section class="row justify-content-center align-items-center">
+    <div class="col-sm-12 col-md-10 col-lg-8 col-lg-6">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Pie Chart</h5>
+          <h5 class="card-title">Últimas votaciones electorales 2018</h5>
 
           <!-- Pie Chart -->
-          <div id="pieChart"></div>
-
+          <canvas id="pieChart" style="max-height: 400px;"></canvas>
           <script>
             document.addEventListener("DOMContentLoaded", () => {
-              new ApexCharts(document.querySelector("#pieChart"), {
-                series: [44, 55, 13, 43, 22],
-                chart: {
-                  height: 350,
-                  type: 'pie',
-                  toolbar: {
-                    show: true
-                  }
-                },
-                labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E']
-              }).render();
+              new Chart(document.querySelector('#pieChart'), {
+                type: 'pie',
+                data: {
+                  labels: [
+                    'MORENA',
+                    'PAN',
+                    'PRI',
+                    'Independientes',
+                    'Candidatos no registrados',
+                    'Votos Nulos'
+                  ],
+                  datasets: [{
+                    data: [53.20, 22.27, 16.41, 5.23, 0.06, 2.83],
+                    backgroundColor: [
+                      'rgb(213, 36, 33)',
+                      'rgb(52, 166, 254)',
+                      'rgb(42, 162, 60)',
+                      'rgb(175, 60, 198)',
+                      'rgb(83, 54, 69)',
+                      'rgb(171, 171, 171)'
+                    ],
+                    hoverOffset: 6
+                  }]
+                }
+              });
             });
           </script>
-          <!-- End Pie Chart -->
+          <!-- End Pie CHart -->
 
         </div>
       </div>
     </div>
   </section>
-
 
 
 </x-template-nice-admin>
