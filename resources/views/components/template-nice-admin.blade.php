@@ -77,13 +77,13 @@
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="#">
-                            <i class="bi bi-circle"></i><span>Principal</span>
+                        <a href="/candidato">
+                            <i class="bi bi-circle {{ request()->routeIs('candidato.index') ? 'active' : '' }}"></i><span>Principal</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="bi bi-circle"></i><span>Crear nuevo</span>
+                        <a href="/candidato/create">
+                            <i class="bi bi-circle {{ request()->routeIs('candidato.create') ? 'active' : '' }}"></i><span>Crear nuevo</span>
                         </a>
                     </li>
                 </ul>
