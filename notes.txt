@@ -1,0 +1,14 @@
+git branch  (Muestra las ramas)
+
+composer require laravel/jetstream
+
+php artisan jetstream:install inertia --dark
+
+npm install
+
+npm run build
+
+npm run dev (ejecuta en tiempo real)
+
+
+php artisan make:component <COMPONENTE>
