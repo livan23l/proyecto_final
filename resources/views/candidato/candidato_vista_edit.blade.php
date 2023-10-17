@@ -8,29 +8,28 @@
                     @csrf
                     @method('PATCH')
                     <div class="form-floating my-2">
-                        <input class="form-control" type="text" name="candidato_nombre" placeholder="nombre" value="{{$candidato->nombre}}"/>
-                        <label class="form-label" for="candidato_nombre">Nombre</label>
+                        <input class="form-control" type="text" name="nombre" placeholder="nombre" value="{{$candidato->nombre}}"/>
+                        <label class="form-label" for="nombre">Nombre</label>
                     </div>
 
                     <div class="form-floating my-2">
-                        <input class="form-control" type="date" name="candidato_f_nac" placeholder="fecha" value="{{$candidato->f_nac}}"/>
-                        <label class="form-label" for="candidato_f_nac">Fecha de nacimiento</label>
+                        <input class="form-control" type="date" name="f_nac" placeholder="fecha" value="{{$candidato->f_nac}}"/>
+                        <label class="form-label" for="f_nac">Fecha de nacimiento</label>
                     </div>
 
                     <div class="form-floating my-2">
-                        <input class="form-control" type="text" name="candidato_partido" placeholder="partido" value="{{$candidato->partido}}"/>
-                        <label class="form-label" for="candidato_partido">Partido</label>
+                        <input class="form-control" type="text" name="partido" placeholder="partido" value="{{$candidato->partido}}"/>
+                        <label class="form-label" for="partido">Partido</label>
                     </div>
 
                     <div class="form-floating my-2">
-                        <textarea class="form-control" id="candidato_descripcion" name="candidato_descripcion" placeholder="descripcion">{{$candidato->descripcion}}</textarea>
-                        <label class="form-label" for="candidato_descripcion">Descripción</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" placeholder="descripcion">{{$candidato->descripcion}}</textarea>
+                        <label class="form-label" for="descripcion">Descripción</label>
                     </div>
 
                     <br />
                     <div class="d-flex justify-content-center">
-
-                        <input class="btn btn-primary" type="submit" name="enviar">
+                        <input class="btn btn-primary" type="submit" value="enviar">
                     </div>
                 </form>
             </div>

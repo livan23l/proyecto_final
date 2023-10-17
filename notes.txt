@@ -1,3 +1,6 @@
+php artisan make:model -mcr
+
+
 git branch  (Muestra las ramas)
 
 composer require laravel/jetstream
@@ -12,3 +15,41 @@ npm run dev (ejecuta en tiempo real)
 
 
 php artisan make:component <COMPONENTE>
+
+-------------------------------------------------------------------
+17/10/2023
+
+php artisan make:factory --help
+
+// Para crear datos a las bases de datos de manera rápida sin ingresarlos de uno por uno:
+
+php artisan make:factory -m Candidato CandidatoFactory
+
+// fakerphp.github.io
+
+php artisan make:seeder CandidatoSeeder
+
+php artisan db:seed --class CandidatoSeeder
+
+// En el seeder Candidato::factory()->count(20)->create();
+
+// Se ejecutan todos los seeders con utilizar "php artisan db:seed" si se modifica DatabaseSeeder.php
+
+php artisan migrate:fresh --seed // Así se vuelven a crear las tablas y se ejecuta DatabaseSeeder.php
+
+
+
+
+// Podemos guardar los registros del CandidatoController en su parte store en una sola línea con
+
+Candidato::create($request->all());
+
+// Siempre y cuando los names del formulario sean iguales a los campos de la tabla en la BD y agreguemos al modelo:
+
+protected $fillable = ["nombre", "f_nac", "partido", "descripcion"];
+
+// Para decir en qué campos se puede hacer una asignación masiva
+
+// Misma información para el update del store:
+
+Candidato::where('id', $candidato->id)->update($request->except('_token', '_method'));

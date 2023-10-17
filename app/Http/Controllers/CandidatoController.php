@@ -31,18 +31,21 @@ class CandidatoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'candidato_nombre' => 'required|string|max:255',
-            'candidato_f_nac' => 'required|date',
-            'candidato_partido' => 'required|string|max:255',
-            'candidato_descripcion' => 'required|string'
+            'nombre' => 'required|string|max:255',
+            'f_nac' => 'required|date',
+            'partido' => 'required|string|max:255',
+            'descripcion' => 'required|string'
         ]);
     
-        $contacto = new Candidato();
-        $contacto->nombre = $request->candidato_nombre;
-        $contacto->f_nac = $request->candidato_f_nac;
-        $contacto->partido = $request->candidato_partido;
-        $contacto->descripcion = $request->candidato_descripcion;
-        $contacto->save();
+        // $contacto = new Candidato();
+        // $contacto->nombre = $request->nombre;
+        // $contacto->f_nac = $request->f_nac;
+        // $contacto->partido = $request->partido;
+        // $contacto->descripcion = $request->descripcion;
+        // $contacto->save();
+
+
+        Candidato::create($request->all());
         
         return redirect()->route("candidato.index");
     }
@@ -69,17 +72,20 @@ class CandidatoController extends Controller
     public function update(Request $request, Candidato $candidato)
     {
         $request->validate([
-            'candidato_nombre' => 'required|string|max:255',
-            'candidato_f_nac' => 'required|date',
-            'candidato_partido' => 'required|string|max:255',
-            'candidato_descripcion' => 'required|string'
+            'nombre' => 'required|string|max:255',
+            'f_nac' => 'required|date',
+            'partido' => 'required|string|max:255',
+            'descripcion' => 'required|string'
         ]);
     
-        $candidato->nombre = $request->candidato_nombre;
-        $candidato->f_nac = $request->candidato_f_nac;
-        $candidato->partido = $request->candidato_partido;
-        $candidato->descripcion = $request->candidato_descripcion;
-        $candidato->save();
+        // $candidato->nombre = $request->nombre;
+        // $candidato->f_nac = $request->f_nac;
+        // $candidato->partido = $request->partido;
+        // $candidato->descripcion = $request->descripcion;
+        // $candidato->save();
+
+        
+        Candidato::where('id', $candidato->id)->update($request->except('_token', '_method'));
         
         return redirect()->route("candidato.index");
     }

@@ -7,23 +7,23 @@
                 <form class="form" action="{{ route('candidato.index') }}" method="POST">
                     @csrf
                     <div class="form-floating my-2">
-                        <input class="form-control" type="text" name="candidato_nombre" placeholder="nombre" />
-                        <label class="form-label" for="candidato_nombre">Nombre</label>
+                        <input class="form-control" type="text" name="nombre" placeholder="nombre" />
+                        <label class="form-label" for="nombre">Nombre</label>
                     </div>
 
                     <div class="form-floating my-2">
-                        <input class="form-control" type="date" name="candidato_f_nac" placeholder="fecha" />
-                        <label class="form-label" for="candidato_f_nac">Fecha de nacimiento</label>
+                        <input class="form-control" type="date" name="f_nac" placeholder="fecha" />
+                        <label class="form-label" for="f_nac">Fecha de nacimiento</label>
                     </div>
 
                     <div class="form-floating my-2">
-                        <input class="form-control" type="text" name="candidato_partido" placeholder="partido" />
-                        <label class="form-label" for="candidato_partido">Partido</label>
+                        <input class="form-control" type="text" name="partido" placeholder="partido" />
+                        <label class="form-label" for="partido">Partido</label>
                     </div>
 
                     <div class="form-floating my-2">
-                        <textarea class="form-control" id="candidato_descripcion" name="candidato_descripcion" placeholder="descripcion"></textarea>
-                        <label class="form-label" for="candidato_descripcion">Descripción</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" placeholder="descripcion"></textarea>
+                        <label class="form-label" for="descripcion">Descripción</label>
                     </div>
 
                     <br />
