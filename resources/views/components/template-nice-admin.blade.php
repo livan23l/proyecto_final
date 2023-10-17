@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>Components / Accordion - NiceAdmin Bootstrap Template</title>
+    <title>VERN</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -37,7 +37,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="/" class="logo d-flex align-items-center">
+            <a href="/presentacion" class="logo d-flex align-items-center">
                 <img src="{{ asset('NiceAdmin/assets/img/logo.png') }}" alt="">
                 <span class="d-none d-lg-block">VERN</span>
             </a>
@@ -51,12 +51,6 @@
             </form>
         </div><!-- End Search Bar -->
 
-        <div class="header-nav ms-auto">
-            <a class="nav-link" href="#">
-                <span class="">Iniciar sesión</span>
-            </a><!-- End Profile Iamge Icon -->
-        </div><!-- End Icons Navigation -->
-
     </header><!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
@@ -65,7 +59,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link  {{ request()->routeIs('miindex') ? '' : 'collapsed' }}" href="/">
+                <a class="nav-link  {{ request()->routeIs('miindex') ? '' : 'collapsed' }}" href="/presentacion">
                     <i class="bi bi-grid"></i>
                     <span>Principal</span>
                 </a>

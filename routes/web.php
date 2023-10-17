@@ -15,11 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('miindex');
-})->name("miindex");
+    return view('welcome');
+});
 
-// Route::get('norma/pdf', [CandidatoController::class, 'pdf'])->name('norma.pdf');
+// Route::get('norma/pdf', [CandidatoController::class, 'pdf'])->name('norma.pdf'); ruta para un caso hipotético de un pdf
 Route::resource('candidato', CandidatoController::class);
+Route::get('/presentacion', function() {
+    return view('presentacion');
+});
 
 Route::middleware([
     'auth:sanctum',

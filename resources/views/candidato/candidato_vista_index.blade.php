@@ -1,13 +1,14 @@
 <x-template-nice-admin>
     <h1>Candidatos registrados:</h1>
-    <table class="table">
+    <hr />
+    <br />
+    <table class="table table-light table-striped table-bordered border-primary">
         <thead>
-            <throw>
-                <td>Nombre</td>
-                <td>Fecha de nacimiento</td>
-                <td>Partido</td>
-                <td>Descripción</td>
-            </throw>
+            <th>Nombre</th>
+            <th>Fecha de nacimiento</th>
+            <th>Partido</th>
+            <th>Descripción</th>
+            <th>Opciones</th>
         </thead>
         <tbody>
             @foreach ($candidatos as $candidato)
@@ -17,21 +18,25 @@
                     <td>{{ $candidato->partido }}</td>
                     <td>{{ $candidato->descripcion }}</td>
                     <td>
-                        <a href="{{ route('candidato.show', $candidato->id) }}">
-                            Ver más
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ route('candidato.edit', $candidato->id) }}">
-                            Editar
-                        </a>
-                    </td>
-                    <td>
-                        <form action="{{ route('candidato.destroy', $candidato) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" value="Borrar">
-                        </form>
+                        <table>
+                            <td>
+                                <a href="{{ route('candidato.show', $candidato->id) }}">
+                                    Ver más
+                                </a>
+                            </td>
+                            <td class="mx-2">
+                                <a href="{{ route('candidato.edit', $candidato->id) }}">
+                                    Editar
+                                </a>
+                            </td>
+                            <td>
+                                <form action="{{ route('candidato.destroy', $candidato) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="Borrar">
+                                </form>
+                            </td>
+                        </table>
                     </td>
                 </tr>
             @endforeach
