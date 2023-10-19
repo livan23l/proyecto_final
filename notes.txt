@@ -53,3 +53,24 @@ protected $fillable = ["nombre", "f_nac", "partido", "descripcion"];
 // Misma información para el update del store:
 
 Candidato::where('id', $candidato->id)->update($request->except('_token', '_method'));
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+Middleware: Son las primeras barreras de seguridad
+
+Ya vienen algunas en el archivo kernel.php
+
+En el web:
+
+Route::resource("candidato", CandidatoController::class)->middleware('auth');  // Agregamos ->middleware('auth');
+
+
+En el controlador:
+
+public function __construct() {
+    $this->middleware("auth");  // ->only() para aplicárselo solo a ciertos métodos. ->except() para no aplicárselo a ciertos metodos
+}
+
+
+Agregar funcionamiento de logout de jetstream para cada logout personal
+

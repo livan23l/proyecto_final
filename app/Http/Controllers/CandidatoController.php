@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class CandidatoController extends Controller
 {
+    public function __construct() {
+        $this->middleware("auth");  // ->only() para aplicárselo solo a ciertos métodos. ->except() para no aplicárselo a ciertos metodos
+    }
+
     /**
      * Display a listing of the resource.
      */
