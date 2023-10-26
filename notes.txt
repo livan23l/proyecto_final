@@ -74,3 +74,8 @@ public function __construct() {
 
 Agregar funcionamiento de logout de jetstream para cada logout personal
 
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+php artisan tinker  // Consola de laravel interactiva para manipular el código.
