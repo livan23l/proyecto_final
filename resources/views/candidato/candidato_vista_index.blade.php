@@ -2,45 +2,41 @@
     <h1>Candidatos registrados:</h1>
     <hr />
     <br />
-    <table class="table table-light table-striped table-bordered border-primary">
-        <thead>
-            <th>Nombre</th>
-            <th>Fecha de nacimiento</th>
-            <th>Partido</th>
-            <th>Descripción</th>
-            <th>Opciones</th>
-        </thead>
-        <tbody>
-            @foreach ($candidatos as $candidato)
-                <tr>
-                    <td>{{ $candidato->nombre }}</td>
-                    <td>{{ $candidato->f_nac }}</td>
-                    <td>{{ $candidato->partido }}</td>
-                    <td>{{ $candidato->descripcion }}</td>
-                    <td>
-                        <table>
+    <div class="d-flex justify-content-center container">
+        <div class="row">
+            <table class="table table-light table-striped table-bordered border-primary text-center">
+                <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+                    <thead>
+                        <th>Nombre</th>
+                        <th>Opciones</th>
+                    </thead>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                    <tbody>
+                        @foreach ($candidatos as $candidato)
+                        <tr>
+                            <td>{{ $candidato->nombre }}</td>
                             <td>
-                                <a href="{{ route('candidato.show', $candidato->id) }}">
-                                    Ver más
-                                </a>
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <a class="btn btn-success" href="{{ route('candidato.show', $candidato->id) }}">
+                                        Ver
+                                    </a>
+                                    <a class="btn btn-warning" href="{{ route('candidato.edit', $candidato->id) }}">
+                                        Editar
+                                    </a>
+                                    <form action="{{ route('candidato.destroy', $candidato) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input class="btn btn-danger" type="submit" value="Borrar">
+                                    </form>
+                                </div>
                             </td>
-                            <td class="mx-2">
-                                <a href="{{ route('candidato.edit', $candidato->id) }}">
-                                    Editar
-                                </a>
-                            </td>
-                            <td>
-                                <form action="{{ route('candidato.destroy', $candidato) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" value="Borrar">
-                                </form>
-                            </td>
-                        </table>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </div>
+            </table>
+        </div>
+    </div>
 
 </x-template-nice-admin>
