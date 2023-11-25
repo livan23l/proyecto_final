@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidato;
+use App\Models\Partido;
 use Illuminate\Http\Request;
 
 class CandidatoController extends Controller
@@ -27,7 +28,9 @@ class CandidatoController extends Controller
      */
     public function create()
     {
-        return view("candidato.candidato_vista_create");
+        $partidos = Partido::all();
+
+        return view("candidato.candidato_vista_create", compact('partidos'));
     }
 
     /**
@@ -84,7 +87,9 @@ class CandidatoController extends Controller
      */
     public function edit(Candidato $candidato)
     {
-        return view("candidato.candidato_vista_edit", compact('candidato'));
+        $partidos = Partido::all();
+
+        return view("candidato.candidato_vista_edit", compact('candidato', 'partidos'));
     }
 
     /**

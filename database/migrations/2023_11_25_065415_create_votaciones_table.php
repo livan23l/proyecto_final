@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('candidatos', function (Blueprint $table) {
+        Schema::create('votaciones', function (Blueprint $table) {
             $table->id();
-            $table->string("nombre");
-            $table->date("f_nac");
-            $table->string("partido");
-            $table->text("descripcion");
+            $table->string("tipo");
+            $table->integer("votos");  // Cantidad total de votos.
+            $table->integer("vot_null");  // Cantidad de votos nulos.
             $table->timestamps();
-
-            // Clave foránea
-            $table->foreign('partido')->references('abreviacion')->on('partidos');
         });
     }
 
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('candidatos');
+        Schema::dropIfExists('votaciones');
     }
 };

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([  // Se ejecutan todos los seeders con llamar solo a este para utilizar "php artisan db:seed" solo
+            PartidoSeeder::class,
             CandidatoSeeder::class
         ]);
     }

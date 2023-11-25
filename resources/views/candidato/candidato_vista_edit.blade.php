@@ -40,13 +40,11 @@
                             <li class="list-group my-2">
                                 <select class="form-select" aria-label="Default select example" name="partido">
                                     <option disabled>Partido</option>
-                                    <option {{($candidato->partido == "MC") ? "selected" : ""}} value="MC">MC (Movimiento Ciudadano)</option>
-                                    <option {{($candidato->partido == "MORENA") ? "selected" : ""}} value="MORENA">MORENA (Movimiento de Regeneración Nacional)</option>
-                                    <option {{($candidato->partido == "PAN") ? "selected" : ""}} value="PAN">PAN (Partido Acción Nacional)</option>
-                                    <option {{($candidato->partido == "PRD") ? "selected" : ""}} value="PRD">PRD (Partido Revolucionario Democrático)</option>
-                                    <option {{($candidato->partido == "PRI") ? "selected" : ""}} value="PRI">PRI (Partido Revolucionario Institucional)</option>
-                                    <option {{($candidato->partido == "PT") ? "selected" : ""}} value="PT">PT (Partido del Trabajo)</option>
-                                    <option {{($candidato->partido == "PVEM") ? "selected" : ""}} value="PVEM">PVEM (Partido Verde Ecologista de México)</option>
+                                    @foreach ($partidos as $partido)
+                                        <option {{$candidato->partido == $partido->abreviacion ? 'selected' : '' }} value="{{ $partido->abreviacion }}">
+                                            {{ $partido->abreviacion . ' (' . $partido->nombre . ')' }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 @error('partido')
                                 <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">

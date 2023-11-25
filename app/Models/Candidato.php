@@ -10,4 +10,9 @@ class Candidato extends Model
     use HasFactory;
 
     protected $fillable = ["nombre", "f_nac", "partido", "descripcion"];
+
+    public function partido()
+    {
+        return $this->belongsTo(Partido::class, 'partido', 'abreviacion');
+    }
 }

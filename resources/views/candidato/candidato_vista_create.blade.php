@@ -12,7 +12,7 @@
                             @csrf
                             <li class="list-group list-group-flush">
                                 <div class="form-floating my-2">
-                                    <input class="form-control" type="text" name="nombre" placeholder="nombre" value="{{old('nombre')}}" required maxlength="255" />
+                                    <input class="form-control" type="text" name="nombre" placeholder="nombre" value="{{ old('nombre') }}" required maxlength="255" />
                                     <label class="form-label" for="nombre">Nombre</label>
                                     @error('nombre')
                                         <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
@@ -26,7 +26,7 @@
 
                             <li class="list-group">
                                 <div class="form-floating my-2">
-                                    <input class="form-control" type="date" name="f_nac" placeholder="fecha" value="{{old('f_nac')}}" required />
+                                    <input class="form-control" type="date" name="f_nac" placeholder="fecha" value="{{ old('f_nac') }}" required />
                                     <label class="form-label" for="f_nac">Fecha de nacimiento</label>
                                     @error('f_nac')
                                         <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
@@ -39,15 +39,13 @@
                             </li>
 
                             <li class="list-group my-2">
-                                <select class="form-select" aria-label="Default select example" name="partido" >
+                                <select class="form-select" aria-label="Default select example" name="partido">
                                     <option selected disabled>Partido</option>
-                                    <option {{(old('partido')=="MC") ? "selected" : ""}} value="MC">MC (Movimiento Ciudadano)</option>
-                                    <option {{(old('partido')=="MORENA") ? "selected" : ""}} value="MORENA">MORENA (Movimiento de Regeneración Nacional)</option>
-                                    <option {{(old('partido')=="PAN") ? "selected" : ""}} value="PAN">PAN (Partido Acción Nacional)</option>
-                                    <option {{(old('partido')=="PRD") ? "selected" : ""}} value="PRD">PRD (Partido Revolucionario Democrático)</option>
-                                    <option {{(old('partido')=="PRI") ? "selected" : ""}} value="PRI">PRI (Partido Revolucionario Institucional)</option>
-                                    <option {{(old('partido')=="PT") ? "selected" : ""}} value="PT">PT (Partido del Trabajo)</option>
-                                    <option {{(old('partido')=="PVEM") ? "selected" : ""}} value="PVEM">PVEM (Partido Verde Ecologista de México)</option>
+                                    @foreach ($partidos as $partido)
+                                        <option {{ old('partido') == $partido->abreviacion ? 'selected' : '' }} value="{{ $partido->abreviacion }}">
+                                            {{ $partido->abreviacion . ' (' . $partido->nombre . ')' }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 @error('partido')
                                     <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
@@ -60,7 +58,7 @@
 
                             <li class="list-group">
                                 <div class="form-floating my-2">
-                                    <textarea class="form-control" id="descripcion" name="descripcion" placeholder="descripcion" required >{{old('descripcion')}}</textarea>
+                                    <textarea class="form-control" id="descripcion" name="descripcion" placeholder="descripcion" required>{{ old('descripcion') }}</textarea>
                                     <label class="form-label" for="descripcion">Descripción</label>
                                     @error('descripcion')
                                         <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
