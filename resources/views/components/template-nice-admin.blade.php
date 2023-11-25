@@ -44,13 +44,6 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-        <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="#">
-                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-            </form>
-        </div><!-- End Search Bar -->
-
     </header><!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
@@ -59,7 +52,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link  {{ request()->routeIs('miindex') ? '' : 'collapsed' }}" href="/presentacion">
+                <a class="nav-link {{ request()->routeIs('presentacion') ? '' : 'collapsed' }}" href="/presentacion">
                     <i class="bi bi-grid"></i>
                     <span>Principal</span>
                 </a>
@@ -71,13 +64,13 @@
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/candidato">
-                            <i class="bi bi-circle {{ request()->routeIs('candidato.index') ? 'active' : '' }}"></i><span>Principal</span>
+                        <a href="/candidato" class={{request()->routeIs('candidato.index') ? 'active' : '' }}>
+                            <i class="bi bi-circle"></i><span>Principal</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/candidato/create">
-                            <i class="bi bi-circle {{ request()->routeIs('candidato.create') ? 'active' : '' }}"></i><span>Crear nuevo</span>
+                        <a href="/candidato/create" class={{request()->routeIs('candidato.create') ? 'active' : '' }}>
+                            <i class="bi bi-circle active"></i><span>Crear nuevo</span>
                         </a>
                     </li>
                 </ul>
@@ -103,6 +96,9 @@
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <!-- Vendor JS Files -->
     <script src="{{ asset('NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('NiceAdmin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -115,7 +111,6 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('NiceAdmin/assets/js/main.js') }}"></script>
-
 </body>
 
 </html>

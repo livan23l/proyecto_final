@@ -1,5 +1,5 @@
 <x-template-nice-admin>
-    <div class="card">
+    <div class="card rounded-4">
         <div class="card-body">
             <h1 class="card-title">Información del candidato:</h1>
             <hr />

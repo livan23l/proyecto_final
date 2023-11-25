@@ -20,9 +20,10 @@ Route::get('/', function () {
 
 // Route::get('norma/pdf', [CandidatoController::class, 'pdf'])->name('norma.pdf'); ruta para un caso hipotético de un pdf
 Route::resource('candidato', CandidatoController::class);
+
 Route::get('/presentacion', function() {
     return view('presentacion');
-});
+})->name("presentacion");
 
 Route::middleware([
     'auth:sanctum',
