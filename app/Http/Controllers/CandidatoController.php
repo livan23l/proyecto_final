@@ -29,7 +29,6 @@ class CandidatoController extends Controller
     public function create()
     {
         $partidos = Partido::all();
-
         return view("candidato.candidato_vista_create", compact('partidos'));
     }
 
@@ -43,15 +42,8 @@ class CandidatoController extends Controller
             'nombre' => 'required|string|max:255',
             'f_nac' => 'required|date|before_or_equal:-18 years',
             'partido' => 'required|string|in:MC,MORENA,PAN,PRD,PRI,PT,PVEM',
-            'descripcion' => 'required|string'
+            'descripcion' => 'required|string|min:5'
         ]);
-
-        // $contacto = new Candidato();
-        // $contacto->nombre = $request->nombre;
-        // $contacto->f_nac = $request->f_nac;
-        // $contacto->partido = $request->partido;
-        // $contacto->descripcion = $request->descripcion;
-        // $contacto->save();
 
         Candidato::create($request->all());
 
@@ -88,7 +80,6 @@ class CandidatoController extends Controller
     public function edit(Candidato $candidato)
     {
         $partidos = Partido::all();
-
         return view("candidato.candidato_vista_edit", compact('candidato', 'partidos'));
     }
 
@@ -102,15 +93,8 @@ class CandidatoController extends Controller
             'nombre' => 'required|string|max:255',
             'f_nac' => 'required|date|before_or_equal:-18 years',
             'partido' => 'required|string|in:MC,MORENA,PAN,PRD,PRI,PT,PVEM',
-            'descripcion' => 'required|string'
+            'descripcion' => 'required|string|min:5'
         ]);
-
-        // $candidato->nombre = $request->nombre;
-        // $candidato->f_nac = $request->f_nac;
-        // $candidato->partido = $request->partido;
-        // $candidato->descripcion = $request->descripcion;
-        // $candidato->save();
-
 
         Candidato::where('id', $candidato->id)->update($request->except('_token', '_method'));
 

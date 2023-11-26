@@ -56,13 +56,20 @@
                     <i class="bi bi-grid"></i>
                     <span>Principal</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
+            </li><!-- End Principal Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Candidatos</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link {{ request()->routeIs('votar.index') ? '' : 'collapsed' }}" href="/votar">
+                    <i class="bi bi-file-earmark-check"></i>
+                    <span>Votar</span>
                 </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            </li><!-- End Votar Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link {{request()->routeIs('candidato.*') ? '' : 'collapsed'}}" data-bs-target="#candidatos-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-people-fill"></i><span>Candidatos</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="candidatos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="/candidato" class={{request()->routeIs('candidato.index') ? 'active' : '' }}>
                             <i class="bi bi-circle"></i><span>Principal</span>
@@ -74,7 +81,25 @@
                         </a>
                     </li>
                 </ul>
-            </li><!-- End Components Nav -->
+            </li><!-- End Candidatos Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link {{request()->routeIs('votacion.*') ? '' : 'collapsed'}}" data-bs-target="#votaciones-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-file-bar-graph"></i><span>Votaciones</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="votaciones-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="/votacion" class={{request()->routeIs('votacion.index') ? 'active' : '' }}>
+                            <i class="bi bi-circle"></i><span>Principal</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/votacion/create" class={{request()->routeIs('votacion.create') ? 'active' : '' }}>
+                            <i class="bi bi-circle active"></i><span>Crear nueva</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Votaciones Nav -->
 
         </ul>
 
@@ -96,8 +121,8 @@
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- jQuery and similar -->
+    <script src="{{ asset('jquery-3.7.1.js')}}"></script>
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>

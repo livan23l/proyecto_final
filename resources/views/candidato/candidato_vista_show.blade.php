@@ -1,4 +1,4 @@
-<x-template-nice-admin>
+<x-template-principal>
     <div class="card rounded-4">
         <div class="card-body">
             <h1 class="card-title">Información del candidato:</h1>
@@ -29,4 +29,4 @@
             <input class="btn btn-danger" type="submit" value="Borrar">
         </form>
     </div>
-</x-template-nice-admin>
+</x-template-principal>

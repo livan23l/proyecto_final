@@ -1,4 +1,4 @@
-<x-template-nice-admin>
+<x-template-principal>
     <h1>Edición de candidato</h1>
     <hr />
     <div class="contianer">
@@ -11,7 +11,8 @@
                         <div class="card-body">
                             <h1 class="card-title text-center">Información</h1>
                             <hr />
-                            <li class="list-group-item">
+                            
+                            <li class="list-group list-group-flush">  <!-- Nombre -->
                                 <div class="form-floating my-2">
                                     <input class="form-control" type="text" name="nombre" placeholder="nombre" value="{{ $candidato->nombre }}" required maxlength="255" />
                                     <label class="form-label" for="nombre">Nombre</label>
@@ -24,7 +25,8 @@
                                     @enderror
                                 </div>
                             </li>
-                            <li class="list-group-item">
+
+                            <li class="list-group">  <!-- Fecha de nacimiento -->
                                 <div class="form-floating my-2">
                                     <input class="form-control" type="date" name="f_nac" placeholder="fecha" value="{{ $candidato->f_nac }}" required />
                                     <label class="form-label" for="f_nac">Fecha de nacimiento</label>
@@ -37,7 +39,8 @@
                                     @enderror
                                 </div>
                             </li>
-                            <li class="list-group my-2">
+
+                            <li class="list-group my-2">  <!-- Partido -->
                                 <select class="form-select" aria-label="Default select example" name="partido">
                                     <option disabled>Partido</option>
                                     @foreach ($partidos as $partido)
@@ -54,9 +57,10 @@
                                 </div>
                                 @enderror
                             </li>
-                            <li class="list-group-item">
+
+                            <li class="list-group">  <!-- Descripción -->
                                 <div class="form-floating my-2">
-                                    <textarea class="form-control" id="descripcion" name="descripcion" placeholder="descripcion" required>{{ $candidato->descripcion }}</textarea>
+                                    <textarea class="form-control" id="descripcion" name="descripcion" placeholder="descripcion" minlength="5" required>{{ $candidato->descripcion }}</textarea>
                                     <label class="form-label" for="descripcion">Descripción</label>
                                     @error('descripcion')
                                     <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
@@ -67,7 +71,8 @@
                                     @enderror
                                 </div>
                             </li>
-                            <li class="list-group-item">
+
+                            <li class="list-group">
                                 <br />
                                 <div class="d-flex justify-content-center">
                                     <input class="btn btn-primary" type="submit" value="Guardar">
@@ -80,4 +85,4 @@
 
         </div>
     </div>
-</x-template-nice-admin>
+</x-template-principal>

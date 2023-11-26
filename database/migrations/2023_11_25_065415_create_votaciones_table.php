@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('votaciones', function (Blueprint $table) {
             $table->id();
-            $table->string("tipo");
-            $table->integer("votos");  // Cantidad total de votos.
-            $table->integer("vot_null");  // Cantidad de votos nulos.
+            $table->string("nombre");
+            $table->string("tipo");  // Presidencial, Diputación o Senaduría.
+            $table->string("alcance");  // Federal o Estatal.
+            $table->string("zona");  // "México" en caso de ser federal o el estado de otro modo.
+            $table->integer("votos")->default(0);  // Cantidad total de votos.
+            $table->integer("votos_null")->default(0);  // Cantidad de votos nulos.
+            $table->text("descripcion");  // Una descripción de la votación.
             $table->timestamps();
         });
     }

@@ -1,4 +1,4 @@
-<x-template-nice-admin>
+<x-template-principal>
     <!-- Title -->
     <div class="container">
         <div class="row justify-content-center align-items-center">
@@ -21,21 +21,16 @@
                 <div class="card-body">
                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                                class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                                aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                                aria-label="Slide 3"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
-                                aria-label="Slide 4"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
                         </div>
                         <div class="carousel-inner">
                             <!-- Voting -->
                             <div class="carousel-item active">
                                 <div class="card">
-                                    <img src="{{ asset('NiceAdmin/assets/img/electronic voting.jpg') }}"
-                                        class="card-img-top" alt="voting image">
+                                    <img src="{{ asset('NiceAdmin/assets/img/electronic voting.jpg') }}" class="card-img-top" alt="voting image">
                                     <div class="card-body">
                                         <h5 class="card-title">Votación electrónica</h5>
                                         <p class="card-text">Vota de manera <b><i>electrónica, fácil y segura</i></b>
@@ -46,8 +41,7 @@
                             <!-- News -->
                             <div class="carousel-item">
                                 <div class="card">
-                                    <img src="{{ asset('NiceAdmin/assets/img/news.jpg') }}" class="card-img-top"
-                                        alt="news image">
+                                    <img src="{{ asset('NiceAdmin/assets/img/news.jpg') }}" class="card-img-top" alt="news image">
                                     <div class="card-body">
                                         <h5 class="card-title">Recomendación de noticias</h5>
                                         <p class="card-text">
@@ -60,8 +54,7 @@
                             <!-- Forum -->
                             <div class="carousel-item">
                                 <div class="card">
-                                    <img src="{{ asset('NiceAdmin/assets/img/forum.jpg') }}" class="card-img-top"
-                                        alt="forum image">
+                                    <img src="{{ asset('NiceAdmin/assets/img/forum.jpg') }}" class="card-img-top" alt="forum image">
                                     <div class="card-body">
                                         <h5 class="card-title">Foro de propuestas</h5>
                                         <p class="card-text"><b>Comparte</b> tus propias propuestas de ley en un foro al
@@ -73,8 +66,7 @@
                             <!-- Validation -->
                             <div class="carousel-item">
                                 <div class="card">
-                                    <img src="{{ asset('NiceAdmin/assets/img/validation.jpg') }}" class="card-img-top"
-                                        alt="validation image">
+                                    <img src="{{ asset('NiceAdmin/assets/img/validation.jpg') }}" class="card-img-top" alt="validation image">
                                     <div class="card-body">
                                         <h5 class="card-title">Valida tu cuenta utilizando tu INE</h5>
                                         <p class="card-text">Valida tu cuenta de forma <b>segura</b> y <b>fácil</b> por
@@ -85,13 +77,11 @@
                             </div>
                         </div>
 
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -159,8 +149,7 @@
                     <p class="card-text">Ingresa a ver las noticias más relevantes del país y filtra tus búsquedas por
                         estado, medio o tipo.</p>
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#basicModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
                             Ver noticias
                         </button>
                     </div>
@@ -169,15 +158,13 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Función sin implementar</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     Aún no hemos implementado esa función, sentimos mucho las molestias.
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
                         </div>
@@ -193,28 +180,7 @@
                     <p class="card-text">Vota por tus candidatos elegidos y acerca de las propuestas de ley que
                         consideres importantes</p>
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#basicModal">
-                            Ver votaciones
-                        </button>
-                    </div>
-                    <div class="modal fade" id="basicModal" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Función sin implementar</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Aún no hemos implementado esa función, sentimos mucho las molestias.
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cerrar</button>
-                                </div>
-                            </div>
-                        </div>
+                        <a class="btn btn-primary" href="{{route('votar.index')}}">Ver votaciones</a>
                     </div>
                 </div>
             </div>
@@ -222,4 +188,4 @@
     </section>
     <!-- End Card Section 2 -->
 
-</x-template-nice-admin>
+</x-template-principal>

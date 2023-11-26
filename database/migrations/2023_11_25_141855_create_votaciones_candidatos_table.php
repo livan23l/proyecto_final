@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('votacion_candidatos', function (Blueprint $table) {
+        Schema::create('votaciones_candidatos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('votacion_id');
             $table->unsignedBigInteger('candidato_id');
-            $table->integer('votos');  // Cantidad de votos
+            $table->unsignedBigInteger('votos')->default(0);  // Los votos que tiene ese candidato en particular.
             $table->timestamps();
         
             $table->foreign('votacion_id')->references('id')->on('votaciones');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('votacion_candidatos');
+        Schema::dropIfExists('votaciones_candidatos');
     }
 };

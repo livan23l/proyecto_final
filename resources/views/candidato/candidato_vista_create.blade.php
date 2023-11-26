@@ -1,16 +1,17 @@
-<x-template-nice-admin>
+<x-template-principal>
     <h1>Creación de candidato</h1>
     <hr />
     <div class="contianer">
         <div class="row d-flex justify-content-center">
             <div class="col-sm-12 col-md-10 col-lg-8 col-xl-8">
                 <form class="form" action="{{ route('candidato.index') }}" method="POST">
+                    @csrf
                     <div class="card">
                         <div class="card-body">
                             <h1 class="card-title text-center">Nuevo candidato</h1>
                             <hr />
-                            @csrf
-                            <li class="list-group list-group-flush">
+                            
+                            <li class="list-group list-group-flush">  <!-- Nombre -->
                                 <div class="form-floating my-2">
                                     <input class="form-control" type="text" name="nombre" placeholder="nombre" value="{{ old('nombre') }}" required maxlength="255" />
                                     <label class="form-label" for="nombre">Nombre</label>
@@ -24,7 +25,7 @@
                                 </div>
                             </li>
 
-                            <li class="list-group">
+                            <li class="list-group">  <!-- Fecha de nacimiento -->
                                 <div class="form-floating my-2">
                                     <input class="form-control" type="date" name="f_nac" placeholder="fecha" value="{{ old('f_nac') }}" required />
                                     <label class="form-label" for="f_nac">Fecha de nacimiento</label>
@@ -38,7 +39,7 @@
                                 </div>
                             </li>
 
-                            <li class="list-group my-2">
+                            <li class="list-group my-2">  <!-- Partido -->
                                 <select class="form-select" aria-label="Default select example" name="partido">
                                     <option selected disabled>Partido</option>
                                     @foreach ($partidos as $partido)
@@ -56,9 +57,9 @@
                                 @enderror
                             </li>
 
-                            <li class="list-group">
+                            <li class="list-group">  <!-- Descripción -->
                                 <div class="form-floating my-2">
-                                    <textarea class="form-control" id="descripcion" name="descripcion" placeholder="descripcion" required>{{ old('descripcion') }}</textarea>
+                                    <textarea class="form-control" id="descripcion" name="descripcion" placeholder="descripcion" minlength="5" required>{{ old('descripcion') }}</textarea>
                                     <label class="form-label" for="descripcion">Descripción</label>
                                     @error('descripcion')
                                         <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
@@ -82,4 +83,4 @@
 
         </div>
     </div>
-</x-template-nice-admin>
+</x-template-principal>
