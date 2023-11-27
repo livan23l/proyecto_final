@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4">
                         <div class="d-flex flex-column align-items-center">
-                            <img src="{{ asset('NiceAdmin/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+                            <img src="{{ auth()->user()->profile_photo_url }}" alt="Profile" class="rounded-circle">
                             <h2 class="text-center">{{ auth()->user()->name }}</h2>
                             <h3 class="pt-2 pb-0 mb-0">{{ auth()->user()->role }}</h3>
                         </div>

@@ -28,6 +28,8 @@
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('NiceAdmin/assets/css/style.css') }}" rel="stylesheet">
+
+    <!-- Others -->
 </head>
 
 <body>
@@ -47,7 +49,7 @@
                 <li class="nav-item dropdown pe-5">
                     @auth <!-- Si el usuario está autenticado -->
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('NiceAdmin/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+                            <img src="{{ auth()->user()->profile_photo_url }}" alt="Profile" class="rounded-circle">
                             <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name }}</span>
                         </a><!-- End Profile Image Icon -->
 
@@ -60,7 +62,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li> <!-- Ver perfil -->
-                                <a class="dropdown-item d-flex align-items-center" href="/user/profile">  <!-- show.blade.php -->
+                                <a class="dropdown-item d-flex align-items-center" href="/user/profile"> <!-- show.blade.php -->
                                     <i class="bi bi-person"></i>
                                     <span>Ver perfil</span>
                                 </a>
@@ -69,7 +71,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li> <!-- Cerrar Sesión -->
-                                <form action="{{route('logout')}}" method="POST">
+                                <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="dropdown-item d-flex align-items-center">
                                         <i class="bi bi-box-arrow-right"></i>
@@ -145,6 +147,24 @@
                 </ul>
             </li><!-- End Votaciones Nav -->
 
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('noticia.*') ? '' : 'collapsed' }}" data-bs-target="#noticias-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-vector-pen"></i><span>Noticias</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="noticias-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="/noticia" class={{ request()->routeIs('noticia.index') ? 'active' : '' }}>
+                            <i class="bi bi-circle"></i><span>Principal</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/noticia/create" class={{ request()->routeIs('noticia.create') ? 'active' : '' }}>
+                            <i class="bi bi-circle active"></i><span>Publicar nueva</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Noticias Nav -->
+
         </ul>
 
     </aside><!-- End Sidebar-->
@@ -181,9 +201,18 @@
     <!-- Template Main JS File -->
     <script src="{{ asset('NiceAdmin/assets/js/main.js') }}"></script>
 
+    <!-- Others -->
+    <script src="{{ asset('js/quill.js') }}"></script>
+
     <!-- My js -->
-    <script src="{{ asset('js/profile-update.js') }}"></script>
-    <script src="{{ asset('js/candidatos-index.js') }}"></script>
+    @if (request()->routeIs('profile.update'))
+        <script src="{{ asset('js/profile-update.js') }}"></script>
+    @elseif (request()->routeIs('candidato.index'))
+        <script src="{{ asset('js/candidatos-index.js') }}"></script>
+    @elseif (request()->routeIs('noticia.create') || request()->routeIs('noticia.edit') )
+        <script src="{{ asset('js/noticias-create.js') }}"></script>
+    @endif
+
 </body>
 
 </html>

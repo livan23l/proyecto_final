@@ -3,7 +3,7 @@
         <div class="row mb-3"> <!-- Imagen -->
             <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Imagen de perfil</label>
             <div class="col-md-8 col-lg-9">
-                <img src="{{ asset('NiceAdmin/assets/img/profile-img.jpg') }}" alt="Profile">
+                <img src="{{ auth()->user()->profile_photo_url }}" alt="Profile">
                 <div class="pt-2">
                     <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
                     <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
