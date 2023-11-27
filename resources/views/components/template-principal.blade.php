@@ -28,11 +28,9 @@
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('NiceAdmin/assets/css/style.css') }}" rel="stylesheet">
-
 </head>
 
 <body>
-
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -44,6 +42,52 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+                <li class="nav-item dropdown pe-5">
+                    @auth <!-- Si el usuario está autenticado -->
+                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('NiceAdmin/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+                            <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name }}</span>
+                        </a><!-- End Profile Image Icon -->
+
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile" style="">
+                            <li class="dropdown-header"> <!-- Nombre y Rol -->
+                                <h6>{{ auth()->user()->name }}</h6>
+                                <span>{{ auth()->user()->role }}</span>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li> <!-- Ver perfil -->
+                                <a class="dropdown-item d-flex align-items-center" href="/user/profile">  <!-- show.blade.php -->
+                                    <i class="bi bi-person"></i>
+                                    <span>Ver perfil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li> <!-- Cerrar Sesión -->
+                                <form action="{{route('logout')}}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item d-flex align-items-center">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                        <span>Cerrar sesión</span>
+                                    </button>
+                                </form>
+                            </li>
+                        </ul><!-- End Profile Dropdown Items -->
+                    @else
+                        <!-- Si el usuario no está autenticado -->
+                        <a class="nav-link" href="{{ route('login') }}">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            <span>Iniciar sesión</span>
+                        </a>
+                    @endauth
+                </li><!-- End Profile Nav -->
+            </ul>
+        </nav><!-- End Profile Section -->
     </header><!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
@@ -59,24 +103,24 @@
             </li><!-- End Principal Nav -->
 
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('votar.index') ? '' : 'collapsed' }}" href="/votar">
+                <a class="nav-link {{ request()->routeIs('votar.*') ? '' : 'collapsed' }}" href="/votar">
                     <i class="bi bi-file-earmark-check"></i>
                     <span>Votar</span>
                 </a>
             </li><!-- End Votar Nav -->
 
             <li class="nav-item">
-                <a class="nav-link {{request()->routeIs('candidato.*') ? '' : 'collapsed'}}" data-bs-target="#candidatos-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link {{ request()->routeIs('candidato.*') ? '' : 'collapsed' }}" data-bs-target="#candidatos-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-people-fill"></i><span>Candidatos</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="candidatos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/candidato" class={{request()->routeIs('candidato.index') ? 'active' : '' }}>
+                        <a href="/candidato" class={{ request()->routeIs('candidato.index') ? 'active' : '' }}>
                             <i class="bi bi-circle"></i><span>Principal</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/candidato/create" class={{request()->routeIs('candidato.create') ? 'active' : '' }}>
+                        <a href="/candidato/create" class={{ request()->routeIs('candidato.create') ? 'active' : '' }}>
                             <i class="bi bi-circle active"></i><span>Crear nuevo</span>
                         </a>
                     </li>
@@ -84,17 +128,17 @@
             </li><!-- End Candidatos Nav -->
 
             <li class="nav-item">
-                <a class="nav-link {{request()->routeIs('votacion.*') ? '' : 'collapsed'}}" data-bs-target="#votaciones-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link {{ request()->routeIs('votacion.*') ? '' : 'collapsed' }}" data-bs-target="#votaciones-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-file-bar-graph"></i><span>Votaciones</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="votaciones-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/votacion" class={{request()->routeIs('votacion.index') ? 'active' : '' }}>
+                        <a href="/votacion" class={{ request()->routeIs('votacion.index') ? 'active' : '' }}>
                             <i class="bi bi-circle"></i><span>Principal</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/votacion/create" class={{request()->routeIs('votacion.create') ? 'active' : '' }}>
+                        <a href="/votacion/create" class={{ request()->routeIs('votacion.create') ? 'active' : '' }}>
                             <i class="bi bi-circle active"></i><span>Crear nueva</span>
                         </a>
                     </li>
@@ -122,7 +166,7 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- jQuery and similar -->
-    <script src="{{ asset('jquery-3.7.1.js')}}"></script>
+    <script src="{{ asset('jquery-3.7.1.js') }}"></script>
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
@@ -136,6 +180,10 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('NiceAdmin/assets/js/main.js') }}"></script>
+
+    <!-- My js -->
+    <script src="{{ asset('js/profile-update.js') }}"></script>
+    <script src="{{ asset('js/candidatos-index.js') }}"></script>
 </body>
 
 </html>

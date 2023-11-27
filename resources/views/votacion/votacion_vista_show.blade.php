@@ -1,15 +1,8 @@
 <x-template-principal>
-    <!-- Title -->
-    <div class="container text-center my-3">
-        <h1 class="display-4">Votaciones en curso</h1>
-        <p class="lead mt-3">
-            Ejerce tu derecho al voto de manera <span class="font-italic">fácil</span>, <span class="font-italic">segura</span> y <span class="font-italic">electrónica</span>.
-        </p>
-        <hr class="my-4">
-    </div>
-    <!-- End Title Section -->
+    <h1>Ver votación</h1>
+    <hr />
 
-    <div class="container mt-4">
+    <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card">
@@ -18,9 +11,9 @@
                     </div>
                     <div class="card-body">
                         <div class="row text-center"> <!-- Información elemental -->
-                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
                                 <div class="mb-3">
-                                    <h5 class="card-title ">Información de la Votación</h5>
+                                    <h5 class="card-title ">Información</h5>
                                     <hr>
                                 </div>
 
@@ -31,7 +24,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
                                 <div class="mb-3">
                                     <h5 class="card-title ">Descripción</h5>
                                     <hr>
@@ -46,7 +39,9 @@
                             <ul class="list-group">
                                 @foreach ($votacion->candidatos as $candidato)
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <a class="text-decoration-none text-dark" href="#">{{ ucwords($candidato->nombre) }}</a>
+                                        <a class="text-decoration-none text-dark" href="{{route("candidato.show", $candidato->id)}}">
+                                            {{ ucwords($candidato->nombre) }}
+                                        </a>
                                         <span class="badge bg-info">{{ $candidato->partido }}</span>
                                     </li>
                                 @endforeach
@@ -66,59 +61,51 @@
                                             </div>
                                         </div>
                                     @else
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <canvas id="grafica_{{ $votacion->id }}" style="max-height: 400px; 
-                                                   display: block;
-                                                   box-sizing: border-box;
-                                                   height: 400px;
-                                                   width: 443px;" width="887" height="800">
-                                            </canvas>
-                                            <script>
-                                                document.addEventListener("DOMContentLoaded", () => {
-                                                    new Chart(document.querySelector('#grafica_{{ $votacion->id }}'), {
-                                                        type: 'doughnut',
-                                                        data: {
-                                                            labels: [
-                                                                @foreach ($votacion->candidatos as $candidato)
-                                                                    '{{ ucwords($candidato->nombre) }}', // Solo el primer nombre capitalizado.
-                                                                @endforeach
-                                                            ],
-                                                            datasets: [{
-                                                                label: 'Votos',
-                                                                data: [
-                                                                    @foreach ($votacion->candidatos as $candidato)
-                                                                        {{ $candidato->pivot->votos }},
-                                                                    @endforeach
-                                                                ],
-                                                                backgroundColor: [
-                                                                    'rgb(0, 128, 0)',
-                                                                    'rgb(0, 150, 200)',
-                                                                    'rgb(255, 182, 193)',
-                                                                    'rgb(128, 0, 128)',
-                                                                    'rgb(0, 255, 255)',
-                                                                    'rgb(255, 0, 0)',
-                                                                    'rgb(255, 165, 0)',
-                                                                    'rgb(255, 255, 0)',
-                                                                    'rgb(128, 128, 128)',
-                                                                    'rgb(165, 42, 42)'
-                                                                ],
-                                                                hoverOffset: 4
-                                                            }]
-                                                        }
-                                                    });
-                                                });
-                                            </script>
-                                        </div>
+                                        <x-grafica_votacion :votacion="$votacion" />
                                     @endif
                                 </div>
                             </div>
                         </div>
-                    <div class="card-footer text-center">
-                        <p>Fecha y hora de creación: {{ $votacion->created_at }}</p>
+
+                        <div class="d-flex justify-content-center m-3">  <!-- Opciones -->
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-primary mx-1" href="{{ route('votacion.index') }}">Ver votaciones</a>
+                                <a class="btn btn-warning mx-1" href="{{ route('votacion.edit', $votacion->id) }}">Editar</a>
+                                <button type="button" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#delete_btn_modal_{{ $votacion->id }}">
+                                    Borrar
+                                </button>
+
+                                <!-- Modal de eliminación -->
+                                <div class="modal fade" id="delete_btn_modal_{{ $votacion->id }}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="ModalLabel">Borrar votacion</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está completamente seguro de que quiere eliminar al votacion '{{ $votacion->nombre }}'?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                                                <form action="{{ route('votacion.destroy', $votacion) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Borrar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer text-center">
+                            <p>Fecha y hora de creación: {{ $votacion->created_at }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 </x-template-principal>

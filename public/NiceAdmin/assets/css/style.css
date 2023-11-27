@@ -1232,3 +1232,40 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+
+/*--------------------------------------------------------------
+# Personales
+--------------------------------------------------------------*/
+
+.min-h-25 {
+  min-height: 25% !important; 
+}
+
+.min-h-50 {
+  min-height: 50% !important; 
+}
+
+.min-h-75 {
+  min-height: 75% !important; 
+}
+
+.min-h-100 {
+  min-height: 100% !important; 
+}
+
+.min-w-25 {
+  min-width: 25% !important; 
+}
+
+.min-w-50 {
+  min-width: 50% !important; 
+}
+
+.min-w-75 {
+  min-width: 75% !important; 
+}
+
+.min-w-100 {
+  min-width: 100% !important; 
+}

@@ -22,17 +22,23 @@
                     @foreach ($votaciones as $votacion)
                         <div class="card">
                             <div class="card-header text-center">
-                                {{ $votacion->tipo }} | {{ $votacion->alcance }} | {{ $votacion->zona }}.
+                                {{ $votacion->tipo }} | {{ $votacion->alcance }} | {{ $votacion->zona }}
                             </div>
-                            <div class="card-body">
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                    <h5 class="card-title text-center">{{ $votacion->nombre }}</h5>
+                            <div class="card-body" class="mb-0">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex align-items-center justify-content-center">
+                                    @if ((\App\Models\UserVotacion::where(['user_id' => auth()->id(), 'votacion_id' => $votacion->id])->get())->isEmpty())
+                                        <i class="bi bi-clipboard-x pt-1 text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Aún no has registrado tu voto"></i>
+                                    @else
+                                        <i class="bi bi-clipboard-check pt-1 text-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Tu voto se registró correctamente"></i>
+                                    @endif
+                                    <h5 class="card-title text-center mb-0 ms-2">{{ $votacion->nombre }}</h5>
                                 </div>
+                                <hr class="mb-0" />
                             </div>
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 d-flex justify-content-center"> <!-- Descripción -->
-                                        <div class="border rounded-3 py-3 ps-2 pe-3 text-center">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 d-flex justify-content-center align-items-center"> <!-- Descripción -->
+                                        <div class="border rounded-3 py-2 ps-2 pe-3 text-center w-100 min-h-75">
                                             <h4><b>Descripción:</b></h4>
                                             {{ $votacion->descripcion }}
                                         </div>
@@ -49,51 +55,7 @@
                                                         </div>
                                                     </div>
                                                 @else
-                                                    <div class="d-flex align-items-center justify-content-center">
-                                                        <canvas id="grafica_{{ $votacion->id }}" style="max-height: 400px; 
-                                                                   display: block;
-                                                                   box-sizing: border-box;
-                                                                   height: 400px;
-                                                                   width: 443px;" width="887" height="800">
-                                                        </canvas>
-                                                        <script>
-                                                            document.addEventListener("DOMContentLoaded", () => {
-                                                                new Chart(document.querySelector('#grafica_{{ $votacion->id }}'), {
-                                                                    type: 'doughnut',
-                                                                    data: {
-                                                                        labels: [
-                                                                            @foreach ($votacion->candidatos as $candidato)
-                                                                                '{{ ucfirst(explode(' ', $candidato->nombre)[0]) }}', // Solo el primer nombre capitalizado.
-                                                                            @endforeach
-                                                                            'NULL'
-                                                                        ],
-                                                                        datasets: [{
-                                                                            label: 'Votos',
-                                                                            data: [
-                                                                                @foreach ($votacion->candidatos as $candidato)
-                                                                                    {{ $candidato->pivot->votos }},
-                                                                                @endforeach
-                                                                                {{$votacion->votos_null}}
-                                                                            ],
-                                                                            backgroundColor: [
-                                                                                'rgb(0, 128, 0)',
-                                                                                'rgb(0, 150, 200)',
-                                                                                'rgb(255, 182, 193)',
-                                                                                'rgb(128, 0, 128)',
-                                                                                'rgb(0, 255, 255)',
-                                                                                'rgb(255, 0, 0)',
-                                                                                'rgb(255, 165, 0)',
-                                                                                'rgb(255, 255, 0)',
-                                                                                'rgb(128, 128, 128)',
-                                                                                'rgb(165, 42, 42)'
-                                                                            ],
-                                                                            hoverOffset: 4
-                                                                        }]
-                                                                    }
-                                                                });
-                                                            });
-                                                        </script>
-                                                    </div>
+                                                    <x-grafica_votacion :votacion="$votacion" />
                                                 @endif
                                             </div>
                                         </div>

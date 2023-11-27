@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidato;
 use App\Models\Partido;
+use App\Models\VotacionCandidato;
 use Illuminate\Http\Request;
 
 class CandidatoController extends Controller
@@ -19,7 +20,7 @@ class CandidatoController extends Controller
     public function index()
     {
         //$candidatos = Candidato::all();
-        $candidatos = Candidato::select('id', 'nombre', 'f_nac', 'partido', 'descripcion')->get();
+        $candidatos = Candidato::select('id', 'nombre', 'f_nac', 'partido', 'descripcion')->orderBy('created_at', 'desc')->get();
         return view("candidato.candidato_vista_index", compact('candidatos'));
     }
 
@@ -48,7 +49,7 @@ class CandidatoController extends Controller
         Candidato::create($request->all());
 
         // Almacenar mensaje de éxito en la sesión flash:
-        session()->flash('create_candidato', 'El candidato ha sido creado exitosamente.');
+        session()->flash('candidato', ['create', true, 'El candidato ha sido creado exitosamente.']);
 
         return redirect()->route("candidato.index");
     }
@@ -99,7 +100,7 @@ class CandidatoController extends Controller
         Candidato::where('id', $candidato->id)->update($request->except('_token', '_method'));
 
         // Almacenar mensaje de éxito en la sesión flash:
-        session()->flash('edit_candidato', 'El candidato ha sido modificado exitosamente.');
+        session()->flash('candidato', ['edit', true, 'El candidato ha sido modificado exitosamente.']);
 
         return redirect()->route("candidato.index");
     }
@@ -109,10 +110,28 @@ class CandidatoController extends Controller
      */
     public function destroy(Candidato $candidato)
     {
+        // Obtener las votaciones en las que participa el candidato.
+        $votaciones = $candidato->votacion;
+        
+        // Verificar si el candidato participa en alguna votación antes de intentar restar votos
+        if ($votaciones && $votaciones->isNotEmpty()) {
+
+            // Iterar sobre cada votación y restar los votos del candidato
+            foreach ($votaciones as $votacion) {
+                $votos_candidato = VotacionCandidato::where(['votacion_id' => $votacion->id, 'candidato_id' => $candidato->id])->pluck('votos')->first();
+                if($votos_candidato != null) {
+                    $votacion->decrement('votos', $votos_candidato);
+                }
+            }
+
+            // Desvincular al candidato de todas las votaciones
+            $candidato->votacion()->detach();
+        }
+
         $candidato->delete();
 
         // Almacenar mensaje de éxito en la sesión flash:
-        session()->flash('destroy_candidato', 'El candidato ha sido eliminado exitosamente.');
+        session()->flash('candidato', ['destroy', true, 'El candidato ha sido eliminado exitosamente.']);
 
         return redirect()->route("candidato.index");
     }

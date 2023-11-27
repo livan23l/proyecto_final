@@ -1,5 +1,5 @@
 <x-template-principal>
-    <h1>Votaciones creadas:</h1>
+    <h1>Votaciones creadas</h1>
     <hr />
     <br />
     @if(session('create_votacion'))

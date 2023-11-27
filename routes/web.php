@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('presentacion');
 });
 
 // Route::get('norma/pdf', [CandidatoController::class, 'pdf'])->name('norma.pdf'); ruta para un caso hipotético de un pdf
@@ -40,5 +40,6 @@ Route::middleware([
 Route::resource('votacion', VotacionController::class);
 
 Route::get('/votar', [VotarController::class, 'index'])->name('votar.index');
+Route::get('/votar/candidato_{id}', [VotarController::class, 'candidato_show'])->name('votar.candidato_show');
 Route::get('/votar/{id}', [VotarController::class, 'show'])->name('votar.show');
 Route::post('/votar/{id}', [VotarController::class, 'store'])->name('votar.store');

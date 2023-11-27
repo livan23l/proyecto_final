@@ -19,7 +19,7 @@ class VotacionController extends Controller
      */
     public function index()
     {
-        $votaciones = Votacion::all();
+        $votaciones = Votacion::orderBy('created_at', 'desc')->get();
         return view("votacion.votacion_vista_index", compact("votaciones"));
     }
 
@@ -28,7 +28,7 @@ class VotacionController extends Controller
      */
     public function create()
     {
-        $candidatos = Candidato::all();
+        $candidatos = Candidato::orderBy('created_at', 'desc')->get();
         $estados = Estado::all();
         return view("votacion.votacion_vista_create", compact("candidatos", "estados"));
     }
@@ -85,7 +85,7 @@ class VotacionController extends Controller
      */
     public function edit(Votacion $votacion)
     {
-        $candidatos = Candidato::all();
+        $candidatos = Candidato::orderBy('created_at', 'desc')->get();
         $estados = Estado::all();
         return view("votacion.votacion_vista_edit", compact("votacion", "candidatos", "estados"));
     }
@@ -119,6 +119,8 @@ class VotacionController extends Controller
 
         $votacion->candidatos()->sync($request->candidatos);
 
+        Votacion::where('id', $votacion->id)->update(["votos" => $votacion->contarVotos($votacion->id)]);
+
         // Almacenar mensaje de éxito en la sesión flash:
         session()->flash('edit_votacion', 'La votación ha sido modificada exitosamente.');
 
@@ -132,7 +134,7 @@ class VotacionController extends Controller
     {
         // Desvincular (borrar) registros en users_votes antes de la eliminación de la votación:
         $votacion->userVotacion()->detach();
-        
+
         // Desvincular (borrar) candidatos antes de la eliminación de la votación:
         $votacion->candidatos()->detach();
 
