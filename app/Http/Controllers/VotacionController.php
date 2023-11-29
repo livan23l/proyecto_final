@@ -67,7 +67,7 @@ class VotacionController extends Controller
         $votacion->candidatos()->attach($request->candidatos);
 
         // Almacenar mensaje de éxito en la sesión flash:
-        session()->flash('create_votacion', 'La votación ha sido creada exitosamente.');
+        session()->flash('votacion', ['create', true, 'La votación ha sido creada exitosamente.']);
 
         return redirect()->route("votacion.index");
     }
@@ -122,7 +122,7 @@ class VotacionController extends Controller
         Votacion::where('id', $votacion->id)->update(["votos" => $votacion->contarVotos($votacion->id)]);
 
         // Almacenar mensaje de éxito en la sesión flash:
-        session()->flash('edit_votacion', 'La votación ha sido modificada exitosamente.');
+        session()->flash('votacion', ['update', true, 'La votación ha sido editada exitosamente.']);
 
         return redirect()->route("votacion.index");
     }
@@ -142,7 +142,7 @@ class VotacionController extends Controller
         $votacion->delete();
 
         // Almacenar mensaje de éxito en la sesión flash:
-        session()->flash('destroy_votacion', 'La votación ha sido eliminada exitosamente.');
+        session()->flash('votacion', ['delete', true, 'La votación ha sido eliminada exitosamente.']);
 
         return redirect()->route("votacion.index");
     }

@@ -7,13 +7,26 @@
     <section class="section profile">
         <div class="row">
             <div class="col-xl-4"> <!-- Tarjeta de perfil -->
-                <x-tarjeta-perfil-component />
+                <div class="card">
+                    <div class="card-body profile-card pt-4">
+                        <div class="d-flex flex-column align-items-center">
+                            <img src="{{ auth()->user()->profile_photo_url }}" alt="Profile" class="rounded-circle">
+                            <h2 class="text-center">{{ auth()->user()->name }}</h2>
+                            <h3 class="pt-2 pb-0 mb-0">{{ auth()->user()->role }}</h3>
+                        </div>
+                        <hr class="mt-3 mb-3" />
+                        <div class="text-center mb-3">
+                            <i class="bi bi-envelope-fill me-2"></i>
+                            <span class="text-decoration-none text-primary">{{ auth()->user()->email }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="col-xl-8"> <!-- Información del usuario y la cuenta. -->
                 <div class="card">
                     <div class="card-body pt-3">
-                        <ul class="nav nav-tabs nav-tabs-bordered" role="tablist"> <!-- Campos -->
+                        <ul class="nav nav-tabs nav-tabs-bordered" role="tablist"> <!-- Tarjetas Superiores -->
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview" aria-selected="true" role="tab">
                                     Descripción
@@ -39,8 +52,8 @@
                             </li>
                         </ul>
 
-                        <div class="tab-content pt-2"> <!-- Contenidos -->
-                            <!-- Descripción -->
+                        <div class="tab-content pt-2">
+                            <!-- Contenido "Descripción" -->
                             <div class="tab-pane fade show active profile-overview" id="profile-overview" role="tabpanel">
                                 <h5 class="card-title">Acerca de mí</h5> <!-- Acerca de mí -->
                                 <p class="small fst-italic">
@@ -75,40 +88,17 @@
                                 </div>
                             </div>
 
-                            <!-- Editar perfil -->
+                            <!-- Contenido "Editar perfil" -->
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit" role="tabpanel">
-                                {{-- @if (Laravel\Fortify\Features::canUpdateProfileInformation())
-                                    @livewire('profile.update-profile-information-form')
-
-                                    <x-section-border />
-                                @endif --}}
                                 @livewire('user-profile-edit') <!-- Edición del perfil en livewire -->
                             </div>
 
-                            <!-- Opciones -->
+                            <!-- Contenido "Opciones" -->
                             <div class="tab-pane fade pt-3" id="profile-settings" role="tabpanel">
-                                @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
-                                    <div class="mt-10 sm:mt-0">
-                                        @livewire('profile.two-factor-authentication-form')
-                                    </div>
 
-                                    <x-section-border />
-                                @endif
-
-                                <div class="mt-10 sm:mt-0">
-                                    @livewire('profile.logout-other-browser-sessions-form')
-                                </div>
-
-                                @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
-                                    <x-section-border />
-
-                                    <div class="mt-10 sm:mt-0">
-                                        @livewire('profile.delete-user-form')
-                                    </div>
-                                @endif
                             </div>
 
-                            <!-- Cambiar contraseña -->
+                            <!-- Contenido "Cambiar contraseña" -->
                             <div class="tab-pane fade pt-3" id="profile-change-password" role="tabpanel">
                                 @livewire('user-profile-change-password') <!-- Cambio de contraseña en livewire -->
                             </div>
@@ -118,5 +108,49 @@
                 </div>
             </div>
         </div>
+        
     </section>
+
+
+
+
+            {{-- 
+    <div>
+        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+            @if (Laravel\Fortify\Features::canUpdateProfileInformation())
+                @livewire('profile.update-profile-information-form')
+
+                <x-section-border />
+            @endif
+
+            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
+                <div class="mt-10 sm:mt-0">
+                    @livewire('profile.update-password-form')
+                </div>
+
+                <x-section-border />
+            @endif
+
+            @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
+                <div class="mt-10 sm:mt-0">
+                    @livewire('profile.two-factor-authentication-form')
+                </div>
+
+                <x-section-border />
+            @endif
+
+            <div class="mt-10 sm:mt-0">
+                @livewire('profile.logout-other-browser-sessions-form')
+            </div>
+
+            @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
+                <x-section-border />
+
+                <div class="mt-10 sm:mt-0">
+                    @livewire('profile.delete-user-form')
+                </div>
+            @endif
+        </div>
+        </div> --}}
+
 </x-template-principal>

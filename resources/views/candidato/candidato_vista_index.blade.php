@@ -3,10 +3,7 @@
     <hr />
     <br />
     @if (session('candidato'))
-        <x-alert-component id="alert_{{ session('candidato')[0] }}_candidato"
-                           tipo="{{ session('candidato')[1] ? 'success' : 'danger' }}"
-                           icono="{{ session('candidato')[1] ? 'bi-check-circle' : 'bi-exclamation-octagon' }}"
-                           mensaje="{{ session('candidato')[2] }}" />
+        <x-alert-component id="alert_{{ session('candidato')[0] }}_candidato" tipo="{{ session('candidato')[1] ? 'success' : 'danger' }}" icono="{{ session('candidato')[1] ? 'bi-check-circle' : 'bi-exclamation-octagon' }}" mensaje="{{ session('candidato')[2] }}" />
     @endif
     @if ($candidatos->isEmpty())
         <div class="alert alert-danger text-center" role="alert">
@@ -33,42 +30,7 @@
                                 <div class="w-50 text-center">
                                     <div class="align-items-center" role="group" aria-label="Opciones">
                                         <ul class="p-O">
-                                            <li class="d-inline-block">
-                                                <a class="btn btn-success" href="{{ route('candidato.show', $candidato->id) }}">Ver</a>
-                                            </li>
-
-                                            <li class="d-inline-block">
-                                                <a class="btn btn-warning" href="{{ route('candidato.edit', $candidato->id) }}">Editar</a>
-                                            </li>
-
-                                            <li class="d-inline-block">
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_btn_modal_{{ $candidato->id }}">
-                                                    Borrar
-                                                </button>
-
-                                                <!-- Modal de eliminación -->
-                                                <div class="modal fade" id="delete_btn_modal_{{ $candidato->id }}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="ModalLabel">Borrar candidato</h1>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                ¿Está completamente seguro de que quiere eliminar al candidato {{ $candidato->nombre }}?
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-                                                                <form action="{{ route('candidato.destroy', $candidato) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger">Borrar</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            <x-botones-opciones-component tipo="candidato" id="{{$candidato->id}}" nombre="{{$candidato->nombre}}" msg="el candidato" />
                                         </ul>
                                     </div>
                                 </div>

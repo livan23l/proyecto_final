@@ -9,12 +9,12 @@
     </div>
     <!-- End Title Section -->
 
+    @if (session('votar'))
+        <x-alert-component id="alert_votar" tipo="{{ session('votar')[1] ? 'success' : 'danger' }}" icono="{{ session('votar')[1] ? 'bi-check-circle' : 'bi-exclamation-octagon' }}" mensaje="{{ session('votar')[2] }}" />
+    @endif
+
     @error('voto')
-        <div id="alert_voto_invalido" class="alert alert-danger alert-dismissible bg-danger text-light border-0 fade show">
-            <i class="bi bi-exclamation-octagon me-1"></i>
-            Ha ocurrido un error durante la votación.
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        <x-alert-component id="alert_votar" tipo="danger" icono="bi-exclamation-octagon" mensaje="Ha ocurrido un error durante la votación. Inténtalo de nuevo" />
     @enderror
 
     @if (session('voto_success'))
@@ -173,41 +173,4 @@
             </div>
         </div>
     </div>
-
 </x-template-principal>
-
-<script>
-    $(document).ready(function() {
-        setTimeout(function() {
-            $('#alert_voto_invalido').alert('close');
-        }, 2500);
-    });
-
-    $(document).ready(function() {
-        setTimeout(function() {
-            $('#alert_vote_success').alert('close');
-        }, 2000);
-    });
-
-    $(document).ready(function() {
-        setTimeout(function() {
-            $('#alert_voto_incorrect').alert('close');
-        }, 2500);
-    });
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var alert = document.getElementById('alert-confirmacion-voto');
-
-        // Al dar click en el votón de enviar se mostrará la alerta:
-        document.getElementById('btn-votar-1').addEventListener('click', function() {
-            alert.classList.remove("d-none");
-        });
-
-        // Cuando el modal se cierre se volverá a agregar la clase "d-none" a la alerta:
-        document.getElementById('modal-votar').addEventListener('hidden.bs.modal', function() {
-            alert.classList.add("d-none");
-        });
-    });
-</script>

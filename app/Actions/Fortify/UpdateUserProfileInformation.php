@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
+use Illuminate\Support\Facades\Storage;  // Personal Configuration.
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
@@ -25,6 +26,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 
         if (isset($input['photo'])) {
             $user->updateProfilePhoto($input['photo']);
+            Storage::put('public/profile-photos', $input['photo']);  // Personal Configuration.
         }
 
         if ($input['email'] !== $user->email &&

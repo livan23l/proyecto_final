@@ -45,7 +45,7 @@ class VotarController extends Controller
         $users_votaciones = UserVotacion::where(['user_id' => $userId, 'votacion_id' => $id]);
 
         if ($users_votaciones->exists()) {  // Si el usuario ya está en la base de datos (ya votó):
-            session()->flash('voto_incorrect', 'Ya has votado, no puedes volver a votar.');
+            session()->flash('votar', ['create', false, 'Ya has votado, no puedes volver a votar.']);
             return redirect()->route('votar.show', $id);
         }
         // Fin de las validaciones.
@@ -67,8 +67,8 @@ class VotarController extends Controller
         }
         // Fin de las modificaciones a la base de datos.
 
-
-        session()->flash('voto_success', 'Tu voto se ha registrado correctamente.');
+        // Almacenar mensaje de éxito en la sesión flash:
+        session()->flash('votar', ['create', true, 'Tu voto se ha registrado correctamente.']);
 
         return redirect()->route('votar.show', $id);
     }

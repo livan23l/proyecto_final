@@ -69,34 +69,7 @@
 
                         <div class="d-flex justify-content-center m-3">  <!-- Opciones -->
                             <div class="d-flex justify-content-between">
-                                <a class="btn btn-primary mx-1" href="{{ route('votacion.index') }}">Ver votaciones</a>
-                                <a class="btn btn-warning mx-1" href="{{ route('votacion.edit', $votacion->id) }}">Editar</a>
-                                <button type="button" class="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#delete_btn_modal_{{ $votacion->id }}">
-                                    Borrar
-                                </button>
-
-                                <!-- Modal de eliminación -->
-                                <div class="modal fade" id="delete_btn_modal_{{ $votacion->id }}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="ModalLabel">Borrar votacion</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                ¿Está completamente seguro de que quiere eliminar al votacion '{{ $votacion->nombre }}'?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-                                                <form action="{{ route('votacion.destroy', $votacion) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Borrar</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <x-botones-opciones-ver-component tipo="votacion" id="{{$votacion->id}}" nombre="{{$votacion->nombre}}" msg="la votación" />
                             </div>
                         </div>
 

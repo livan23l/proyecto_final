@@ -2,12 +2,17 @@
 
 namespace App\Livewire;
 
-use App\Models\Estado;
 use App\Models\User;
+use App\Models\Estado;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class UserProfileEdit extends Component
 {
+    use WithFileUploads;  // Para la carga de archivos.
+
+    public $photo;
     public $name;
     public $description;
     public $email;
@@ -15,6 +20,7 @@ class UserProfileEdit extends Component
 
     public function mount()
     {
+        $this->photo = auth()->user()->profile_photo_path;
         $this->name = auth()->user()->name;
         $this->description = auth()->user()->description;
         $this->email = auth()->user()->email;
@@ -31,6 +37,7 @@ class UserProfileEdit extends Component
 
         // Reglas de validación:
         $rules = [
+            'photo' => 'nullable',
             'name' => 'required|max:255',
             'description' => 'required|min:5|max:500',
             'email' => 'required|email',
@@ -39,6 +46,7 @@ class UserProfileEdit extends Component
 
         // Mensajes de error:
         $messages = [
+            'photo.mimes' => 'El tipo del archivo no es el indicado.',
             'name.required' => 'El campo nombre es obligatorio.',
             'name.max' => 'El campo nombre no puede tener más de 255 caracteres.',
             'description.required' => 'El campo descripción es obligatorio.',
@@ -52,6 +60,13 @@ class UserProfileEdit extends Component
 
         $this->validate($rules, $messages);  // La validación.
 
+        // dd([$this->photo, $user->profile_photo_path]);
+
+        if (isset($this->photo)) {
+            $user->updateProfilePhoto($this->photo);
+            Storage::put('public/profile-photos', $this->photo);
+        }
+
         // Actualizamos:
         if ($user->update([
             'name' => $this->name,
@@ -63,6 +78,22 @@ class UserProfileEdit extends Component
         } else {  // Error.
             session()->flash('profile-update', [false, "Error al actualizar perfil."]);
         }
+    }
+
+    public function deleteProfilePhoto()
+    {
+        // Obtenemos el usuario como un modelo User:
+        $user = User::find(auth()->user()->id);
+
+
+        if ($user->profile_photo_path) {
+            $user->deleteProfilePhoto();
+            session()->flash('profile-update', [true, "Foto eliminada correctamente."]);
+        } else {
+            session()->flash('profile-update', [false, "No tienes foto de perfil."]);
+        }
+
+        $this->reset();
     }
 
     public function render()
