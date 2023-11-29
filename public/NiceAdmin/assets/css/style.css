@@ -1314,3 +1314,62 @@ h6 {
   z-index: 1;
   width: auto;
 }
+
+
+/* Estilos para las sugerencias */
+.sugerencias {
+    position: absolute;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: 100%;
+    background-color: white;
+}
+
+.sugerencia {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.sugerencia:hover {
+  background-color: #f0f0f0;
+}
+
+
+.custom-card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+}
+
+.custom-title {
+  color: #007bff;
+}
+
+.custom-text {
+  color: #555;
+}
+
+.card-info {
+  margin-top: 10px;
+}
+
+.card-details {
+  font-size: 14px;
+  color: #888;
+}
+
+.card-categories {
+  font-size: 14px;
+  color: #888;
+}
+
+.custom-btn {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.color-edit {
+  color: rgb(228, 152, 10);
+}

@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\CandidatoController;
 use App\Http\Controllers\NoticiaController;
+use App\Http\Controllers\UserNoticiaLikeController;
 use App\Http\Controllers\VotacionController;
 use App\Http\Controllers\VotarController;
+use App\Models\UserNoticiaLike;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,5 +47,8 @@ Route::get('/votar', [VotarController::class, 'index'])->name('votar.index');
 Route::get('/votar/candidato_{id}', [VotarController::class, 'candidato_show'])->name('votar.candidato_show');
 Route::get('/votar/{id}', [VotarController::class, 'show'])->name('votar.show');
 Route::post('/votar/{id}', [VotarController::class, 'store'])->name('votar.store');
+
+Route::post('/user-noticia-like/{noticia}', [UserNoticiaLikeController::class, 'toggleLike'])->name("user.noticiaLike");
+
 
 

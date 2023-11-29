@@ -3,7 +3,7 @@
     <hr />
     <br />
     @if (session('candidato'))
-        <x-alert-component id="alert_{{ session('candidato')[0] }}_candidato" tipo="{{ session('candidato')[1] ? 'success' : 'danger' }}" icono="{{ session('candidato')[1] ? 'bi-check-circle' : 'bi-exclamation-octagon' }}" mensaje="{{ session('candidato')[2] }}" />
+        <x-alert-component id="alert_candidato" tipo="{{ session('candidato')[1] ? 'success' : 'danger' }}" icono="{{ session('candidato')[1] ? 'bi-check-circle' : 'bi-exclamation-octagon' }}" mensaje="{{ session('candidato')[2] }}" />
     @endif
     @if ($candidatos->isEmpty())
         <div class="alert alert-danger text-center" role="alert">

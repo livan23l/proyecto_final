@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('titulo', 255);
             $table->mediumText('contenido');
-            $table->enum("alcance", ["Federal", "Estatal"])->default("Federal");
+            $table->enum("origen", ["Federal", "Estatal"])->default("Federal");
             $table->string("zona");
+            $table->unsignedBigInteger('votos_tot')->default(0);
+            $table->string("categ_select");  // Auxiliar para mostrar las categorías.
             $table->timestamps();
         });
     }

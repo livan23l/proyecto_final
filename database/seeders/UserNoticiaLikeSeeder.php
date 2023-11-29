@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Noticia;
+use App\Models\UserNoticiaLike;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class NoticiaSeeder extends Seeder
+class UserNoticiaLikeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class NoticiaSeeder extends Seeder
     public function run(): void
     {
         // Lógica para generar datos de votación ficticios
-        Noticia::factory()->count(10)->create();
+        UserNoticiaLike::factory()->count(10)->create();
     }
 }

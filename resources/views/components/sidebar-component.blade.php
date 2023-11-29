@@ -22,12 +22,12 @@
                 </a>
                 <ul id="candidatos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/candidato" class={{ request()->routeIs('candidato.index') ? 'active' : '' }}>
+                        <a href="/candidato" class="{{ request()->routeIs('candidato.index') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>Principal</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/candidato/create" class={{ request()->routeIs('candidato.create') ? 'active' : '' }}>
+                        <a href="/candidato/create" class="{{ request()->routeIs('candidato.create') ? 'active' : '' }}">
                             <i class="bi bi-circle active"></i><span>Crear nuevo</span>
                         </a>
                     </li>
@@ -40,12 +40,12 @@
                 </a>
                 <ul id="votaciones-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/votacion" class={{ request()->routeIs('votacion.index') ? 'active' : '' }}>
+                        <a href="/votacion" class="{{ request()->routeIs('votacion.index') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>Principal</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/votacion/create" class={{ request()->routeIs('votacion.create') ? 'active' : '' }}>
+                        <a href="/votacion/create" class="{{ request()->routeIs('votacion.create') ? 'active' : '' }}">
                             <i class="bi bi-circle active"></i><span>Crear nueva</span>
                         </a>
                     </li>
@@ -58,13 +58,18 @@
                 </a>
                 <ul id="noticias-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/noticia" class={{ request()->routeIs('noticia.index') ? 'active' : '' }}>
-                            <i class="bi bi-circle"></i><span>Principal</span>
+                        <a href="/noticia" class="{{ request()->routeIs('noticia.index') ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>Mis noticias</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/noticia/create" class={{ request()->routeIs('noticia.create') ? 'active' : '' }}>
+                        <a href="/noticia/create" class="{{ request()->routeIs('noticia.create') ? 'active' : '' }}">
                             <i class="bi bi-circle active"></i><span>Publicar nueva</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="">
+                            <i class="bi bi-circle active"></i><span>Validar periodistas.</span>
                         </a>
                     </li>
                 </ul>
