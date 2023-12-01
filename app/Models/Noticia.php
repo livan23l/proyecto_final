@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Noticia extends Model
 {
     // Indicamos los campos que pueden ser llenados masivamente (por ejemplo con seeders).
-    protected $fillable = ["titulo", "origen", "zona", "contenido", "categ_select", "votos_tot"];
+    protected $fillable = ["titulo", "origen", "zona", "contenido", "autor", "autor_id", "categ_select", "votos_tot"];
 
     use HasFactory;
 

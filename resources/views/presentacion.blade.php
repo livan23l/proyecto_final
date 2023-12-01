@@ -149,25 +149,7 @@
                     <p class="card-text">Ingresa a ver las noticias más relevantes del país y filtra tus búsquedas por
                         estado, medio o tipo.</p>
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
-                            Ver noticias
-                        </button>
-                    </div>
-                    <div class="modal fade" id="basicModal" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Función sin implementar</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Aún no hemos implementado esa función, sentimos mucho las molestias.
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                </div>
-                            </div>
-                        </div>
+                        <a class="btn btn-primary" href="{{ route('noticias.ver') }}">Ver noticias</a>
                     </div>
                 </div>
             </div>
@@ -177,10 +159,9 @@
                 <div class="card-body">
                     <h5 class="card-title">Votación</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Las votaciones más importantes del país.</h6>
-                    <p class="card-text">Vota por tus candidatos elegidos y acerca de las propuestas de ley que
-                        consideres importantes</p>
+                    <p class="card-text">Vota por tus candidatos elegidos y acerca de las propuestas de ley que consideres importantes</p>
                     <div class="text-center">
-                        <a class="btn btn-primary" href="{{route('votar.index')}}">Ver votaciones</a>
+                        <a class="btn btn-primary" href="{{ route('votar.index') }}">Ver votaciones</a>
                     </div>
                 </div>
             </div>

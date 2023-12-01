@@ -23,11 +23,15 @@
         <script src="{{ asset('js/candidatos-index.js') }}"></script>
     @elseif (request()->routeIs('noticia.create') || request()->routeIs('noticia.edit') )  <!-- Quill -->
         <script src="{{ asset('js/noticia-form.js') }}"></script>
+    @elseif (request()->routeIs('noticia.index') || request()->routeIs('noticia.show') || request()->routeIs('noticias.ver') )  <!-- Quill -->
+        <script src="{{ asset('js/noticia-ver.js') }}"></script>
     @elseif (request()->routeIs('votacion.index'))  <!-- Alertas votaciones -->
         <script src="{{ asset('js/votacion-index.js') }}"></script>
     @elseif (request()->routeIs('votar.show'))  <!-- Alertas votar -->
         <script src="{{ asset('js/votar-index.js') }}"></script>
     @elseif (request()->routeIs('noticia.index'))  <!-- Alertas noticias -->
         <script src="{{ asset('js/noticia-index.js') }}"></script>
+    @elseif (request()->routeIs('noticia.periodista'))  <!-- Alertas peticiones -->
+        <script src="{{ asset('js/noticia-periodista.js') }}"></script>
     @endif
 </div>

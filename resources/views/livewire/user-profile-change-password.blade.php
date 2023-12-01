@@ -35,9 +35,7 @@
             @endif
         @else
             @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    <x-alert-component id="" tipo="danger" icono="bi-exclamation-octagon" mensaje="{{ $error }}" />
-                @endforeach
+                <x-alert-component id="" tipo="danger" icono="bi-exclamation-octagon" mensaje="{{ $errors->first() }}" />
             @endif
         @endif
     </div>

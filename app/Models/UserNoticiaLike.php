@@ -22,9 +22,4 @@ class UserNoticiaLike extends Model
     {
         return $this->belongsTo(Noticia::class);
     }
-
-    public function user_like_bool($noticia)
-    {
-        dd($noticia);
-    }
 }

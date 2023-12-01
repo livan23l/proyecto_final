@@ -17,12 +17,12 @@
 
             <div>
                 <x-label for="email" value="{{ __('Correo') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-input-logins id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             </div>
 
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Contraseña') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-input-logins id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
             <div class="block mt-4 flex items-center">
@@ -45,9 +45,9 @@
                     {{ __('Crear cuenta') }}
                 </a>
 
-                <x-button class="ml-4">
+                <x-button-logins class="ml-4">
                     {{ __('Ingresar') }}
-                </x-button>
+                </x-button-logins>
             </div>
         </form>
     </x-authentication-card>

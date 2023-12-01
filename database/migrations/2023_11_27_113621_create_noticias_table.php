@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('titulo', 255);
             $table->mediumText('contenido');
+            $table->string('autor', 255)->default("Anónimo");
+            $table->unsignedBigInteger('autor_id');
             $table->enum("origen", ["Federal", "Estatal"])->default("Federal");
             $table->string("zona");
             $table->unsignedBigInteger('votos_tot')->default(0);

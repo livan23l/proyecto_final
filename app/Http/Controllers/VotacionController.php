@@ -19,6 +19,7 @@ class VotacionController extends Controller
      */
     public function index()
     {
+        $this->authorize('administrador');
         $votaciones = Votacion::orderBy('created_at', 'desc')->get();
         return view("votacion.votacion_vista_index", compact("votaciones"));
     }
@@ -28,6 +29,7 @@ class VotacionController extends Controller
      */
     public function create()
     {
+        $this->authorize('administrador');
         $candidatos = Candidato::orderBy('created_at', 'desc')->get();
         $estados = Estado::all();
         return view("votacion.votacion_vista_create", compact("candidatos", "estados"));
@@ -38,6 +40,7 @@ class VotacionController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('administrador');
         //dd($request);
         $estados = Estado::pluck('nombre')->toArray();  // Convertimos los nombres a un arreglo.
 
@@ -77,6 +80,7 @@ class VotacionController extends Controller
      */
     public function show(Votacion $votacion)
     {
+        $this->authorize('administrador');
         return view("votacion.votacion_vista_show", compact("votacion"));
     }
 
@@ -85,6 +89,7 @@ class VotacionController extends Controller
      */
     public function edit(Votacion $votacion)
     {
+        $this->authorize('administrador');
         $candidatos = Candidato::orderBy('created_at', 'desc')->get();
         $estados = Estado::all();
         return view("votacion.votacion_vista_edit", compact("votacion", "candidatos", "estados"));
@@ -95,6 +100,7 @@ class VotacionController extends Controller
      */
     public function update(Request $request, Votacion $votacion)
     {
+        $this->authorize('administrador');
         //dd($request);
         $estados = Estado::pluck('nombre')->toArray();  // Convertimos los nombres a un arreglo.
 
@@ -132,6 +138,7 @@ class VotacionController extends Controller
      */
     public function destroy(Votacion $votacion)
     {
+        $this->authorize('administrador');
         // Desvincular (borrar) registros en users_votes antes de la eliminación de la votación:
         $votacion->userVotacion()->detach();
 

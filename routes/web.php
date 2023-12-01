@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CandidatoController;
 use App\Http\Controllers\NoticiaController;
+use App\Http\Controllers\PerfilUsuarioController;
 use App\Http\Controllers\UserNoticiaLikeController;
 use App\Http\Controllers\VotacionController;
 use App\Http\Controllers\VotarController;
@@ -50,5 +51,11 @@ Route::post('/votar/{id}', [VotarController::class, 'store'])->name('votar.store
 
 Route::post('/user-noticia-like/{noticia}', [UserNoticiaLikeController::class, 'toggleLike'])->name("user.noticiaLike");
 
+Route::get('/user/configuration/{id}', [PerfilUsuarioController::class, 'configuration'])->name("profile.configuration");
 
+Route::get('/noticias', [NoticiaController::class, 'ver'])->name("noticias.ver");
 
+Route::get('/periodista', [NoticiaController::class, 'periodista'])->name("noticia.periodista");
+Route::post('/periodista/store', [NoticiaController::class, 'periodista_store'])->name("noticia.periodista_store");
+
+Route::delete('/periodista/destroy/{peticion}', [NoticiaController::class, 'periodista_destroy'])->name("noticia.periodista_destroy");

@@ -19,7 +19,7 @@ class CandidatoController extends Controller
      */
     public function index()
     {
-        //$candidatos = Candidato::all();
+        $this->authorize('administrador');
         $candidatos = Candidato::select('id', 'nombre', 'f_nac', 'partido', 'descripcion')->orderBy('created_at', 'desc')->get();
         return view("candidato.candidato_vista_index", compact('candidatos'));
     }
@@ -29,6 +29,7 @@ class CandidatoController extends Controller
      */
     public function create()
     {
+        $this->authorize('administrador');
         $partidos = Partido::all();
         return view("candidato.candidato_vista_create", compact('partidos'));
     }
@@ -38,6 +39,7 @@ class CandidatoController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('administrador');
         //dd($request);
         $request->validate([
             'nombre' => 'required|string|max:255',
@@ -59,6 +61,7 @@ class CandidatoController extends Controller
      */
     public function show(Candidato $candidato)
     {
+        $this->authorize('administrador');
         // Mapeo de valores
         $partidos = [
             'MC' => 'Movimiento Ciudadano',
@@ -80,6 +83,7 @@ class CandidatoController extends Controller
      */
     public function edit(Candidato $candidato)
     {
+        $this->authorize('administrador');
         $partidos = Partido::all();
         return view("candidato.candidato_vista_edit", compact('candidato', 'partidos'));
     }
@@ -89,6 +93,7 @@ class CandidatoController extends Controller
      */
     public function update(Request $request, Candidato $candidato)
     {
+        $this->authorize('administrador');
         //dd($request);
         $request->validate([
             'nombre' => 'required|string|max:255',
@@ -110,6 +115,7 @@ class CandidatoController extends Controller
      */
     public function destroy(Candidato $candidato)
     {
+        $this->authorize('administrador');
         // Obtener las votaciones en las que participa el candidato.
         $votaciones = $candidato->votacion;
         

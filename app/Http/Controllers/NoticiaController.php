@@ -7,8 +7,10 @@ use App\Models\Categoria;
 use App\Models\Estado;
 use App\Models\Noticia;
 use App\Models\NoticiaCategoria;
+use App\Models\Peticion;
 use App\Models\UserNoticiaLike;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NoticiaController extends Controller
 {
@@ -22,69 +24,17 @@ class NoticiaController extends Controller
      */
     public function index()
     {
-        // Obtener todas las noticias
-        $noticias = Noticia::orderBy('created_at', 'desc')->get();
-
-        // Obtener las categorías y likes para la vista
-        $categorias = Categoria::all();
-        $likes = UserNoticiaLike::all();
-
-        // Ponderación para el estado (ejemplo: si es igual, valor 5; si no, valor 1)
-        $estadoUsuario = auth()->user()->estado;
-
-        function validar_estado($estado)
-        {
-            if ($estado == auth()->user()->estado) {
-                return 5;
-            } elseif ($estado == "Baja California") {
-                return -10;
-            } else {
-                return -2;
-            }
-        }
-
-        function validar_categoria($categoria)
-        {
-            if ($categoria == 'Ciencia' || $categoria == 'Tecnologia') {
-                return 5;
-            } else {
-                return -2;
-            }
-        }
-
-
-        $noticiasRelevantes = [];
-        foreach ($noticias as $noticia) {
-            // Añadimos un nuevo elemento al array por cada noticia
-            $noticiasRelevantes[] = [
-                'noticia' => $noticia,
-                'puntuacion' => 0,
-            ];
-
-            // Actualizamos la puntuación de la noticia actual
-            $noticiasRelevantes[count($noticiasRelevantes) - 1]['puntuacion'] += validar_estado($noticia->estado);
-            $noticiasRelevantes[count($noticiasRelevantes) - 1]['puntuacion'] += validar_categoria($noticia->categoria);
-        }
-
-
-
-        $noticiasRelevantes = array_values($noticiasRelevantes);
-
-        // Ordenamos el array por 'puntuacion' de mayor a menor
-        arsort($noticiasRelevantes);
-
-        // Pasar los datos a la vista
-        return view("noticia.noticia_vista_index", compact("noticiasRelevantes", "categorias", "likes"));
+        $this->authorize('periodista');
+        $noticias = Noticia::where('autor_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        return view("noticia.noticia_vista_index", compact("noticias"));
     }
-
-
-
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        $this->authorize('periodista');
         $categorias = Categoria::all();
         $estados = Estado::all();
         return view("noticia.noticia_vista_create", compact("estados", "categorias"));
@@ -95,6 +45,7 @@ class NoticiaController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('periodista');
         // dd($request->categ_select);
         $estados = Estado::pluck('nombre')->toArray();  // Convertimos los nombres a un arreglo.
 
@@ -108,13 +59,21 @@ class NoticiaController extends Controller
             "contenido" => "required|min:10",
         ]);
 
+        if (isset(auth()->user()->name)) {
+            $autor = auth()->user()->name;
+        } else {
+            $autor = "Anónimo";
+        }
+
         // Guardamos la votación:
         $noticia = new Noticia([
-            'categ_select' => $request->categ_select,
             'titulo' => $request->titulo,
+            'contenido' => $request->contenido,
+            'autor' => $autor,
+            'autor_id' => auth()->user()->id,
             'origen' => $request->origen,
             'zona' => ($request->origen == "Federal") ? "México" : $request->zona,
-            'contenido' => $request->contenido,
+            'categ_select' => $request->categ_select,
         ]);
 
         $noticia->save();
@@ -132,7 +91,7 @@ class NoticiaController extends Controller
      */
     public function show(Noticia $noticia)
     {
-        //
+        $this->authorize('periodista');
     }
 
     /**
@@ -140,6 +99,8 @@ class NoticiaController extends Controller
      */
     public function edit(Noticia $noticia)
     {
+        $this->authorize('periodista');
+        $this->authorize('autor', $noticia);
         $categorias = Categoria::all();
         $estados = Estado::all();
         return view("noticia.noticia_vista_edit", compact("noticia", "estados", "categorias"));
@@ -150,6 +111,8 @@ class NoticiaController extends Controller
      */
     public function update(Request $request, Noticia $noticia)
     {
+        $this->authorize('periodista');
+        $this->authorize('autor', $noticia);
         // dd($request->categ_select);
         $estados = Estado::pluck('nombre')->toArray();  // Convertimos los nombres a un arreglo.
 
@@ -185,6 +148,8 @@ class NoticiaController extends Controller
      */
     public function destroy(Noticia $noticia)
     {
+        $this->authorize('periodista');
+        $this->authorize('autor', $noticia);
         // Desvincular (borrar) registros en categorias antes de la eliminación de la noticia:
         $noticia->categorias()->detach();
 
@@ -195,5 +160,166 @@ class NoticiaController extends Controller
         session()->flash('noticia', [true, 'La noticia ha sido eliminada exitosamente.']);
 
         return redirect()->route("noticia.index");
+    }
+
+    public function ver()
+    {
+        // Obtener todas las noticias
+        $noticias = Noticia::orderBy('created_at', 'desc')->get();
+
+        $noticiasRelevantes = [];
+
+        foreach ($noticias as $noticia) {
+            $noticiasRelevantes[] = [
+                'noticia' => $noticia,
+                'puntaje' => 0,
+            ];
+        }
+
+        $compilador = [];
+        // Primera parte (El mismo estado que el usuario):
+
+        for ($i = 0; $i < (count($noticiasRelevantes)); $i++) {
+            $compilador[$i] = 0;
+        }
+
+        $i = 0;
+
+        foreach ($noticiasRelevantes as $noticia) {
+            if ($noticia["noticia"]->zona == auth()->user()->state) {
+                $compilador[$i] += 8;
+            } elseif ($noticia["noticia"]->zona == "México") {
+                $compilador[$i] += 4;
+            } else {
+                $compilador[$i] -= 1;
+            }
+            $i++;
+        }
+
+        for ($i = 0; $i < (count($noticiasRelevantes)); $i++) {
+            $noticiasRelevantes[$i]["puntaje"] = $compilador[$i];
+        }
+
+
+        // Segunda parte (Contenido menor a 30 caracteres):
+
+        for ($i = 0; $i < (count($noticiasRelevantes)); $i++) {
+            $compilador[$i] = 0;
+        }
+        $i = 0;
+
+
+        foreach ($noticiasRelevantes as $noticia) {
+            if (strlen($noticia["noticia"]->contenido) < 30) {
+                $compilador[$i] -= 3;
+            } else {
+                $compilador[$i] += 3;
+            }
+            $i++;
+        }
+
+        for ($i = 0; $i < (count($noticiasRelevantes)); $i++) {
+            $noticiasRelevantes[$i]["puntaje"] += $compilador[$i];
+        }
+
+
+
+        // Tercera parte (Valoración de categorías):
+
+        $categorias_good = ["Tecnologia", "Ciencia", "Politica"];  // Categorías sobrevaloradas
+        $categorias_bad = ["Arte", "Viajes", "Comercio"];  // Categorías infravaloradas
+
+        for ($i = 0; $i < (count($noticiasRelevantes)); $i++) {
+            $compilador[$i] = 0;
+        }
+
+        $i = 0;
+
+        foreach ($noticiasRelevantes as $noticia) {
+            foreach ($noticia["noticia"]->categorias as $categoria) {
+                if (in_array($categoria->nombre, $categorias_good)) {
+                    $compilador[$i] += 4;
+                } elseif (in_array($categoria->nombre, $categorias_bad)) {
+                    $compilador[$i] -= 4;
+                } else {
+                    $compilador[$i] += 1;
+                }
+            }
+            $i++;
+        }
+
+        for ($i = 0; $i < (count($noticiasRelevantes)); $i++) {
+            $noticiasRelevantes[$i]["puntaje"] += $compilador[$i];
+        }
+
+
+        usort($noticiasRelevantes, function ($a, $b) {
+            return $b['puntaje'] - $a['puntaje'];
+        });
+
+        // dd($noticiasRelevantes);
+
+        $categorias = Categoria::all();
+        $likes = UserNoticiaLike::all();
+        // Pasar los datos a la vista
+        return view("noticia.noticia_vista_ver", compact("noticiasRelevantes", "categorias", "likes"));
+    }
+
+    public function periodista()
+    {
+        $this->authorize('ciudadano');
+        $peticion = Peticion::where("user_id", auth()->user()->id)->get();
+        return view("noticia.noticia_vista_periodista", compact("peticion"));
+    }
+
+    public function periodista_store(Request $request)
+    {
+        $this->authorize('ciudadano');
+
+        $request->validate([
+            'motivo' => 'required|string|min:20|max:255',
+            'identificacion' => 'required|mimes:pdf',
+        ]);
+
+        $peticiones = Peticion::where("user_id", auth()->user()->id)->get();
+        if (!$peticiones->isEmpty()) {  // Si el usuario ya mandó la petición.
+            session()->flash('peticion', [false, 'Ya has aplicado para ser periodista']);
+            return redirect(route("noticia.periodista"));
+        }
+
+        // Almacenar el archivo en el servidor
+        $archivoRuta = $request->file('identificacion')->store('archivos_peticiones', 'public');
+
+        // Guardamos la petición:
+        $peticion = new Peticion([
+            'user_id' => auth()->user()->id,
+            'motivo' => $request->motivo,
+            'identificacion' => $archivoRuta,
+        ]);
+
+        $peticion->save();
+
+        session()->flash('peticion', [true, 'La petición fue enviada correctamente.']);
+
+        return redirect(route("noticia.periodista"));
+    }
+
+    public function periodista_destroy(Peticion $peticion)
+    {
+        // Obtener la ruta del archivo
+        $archivoRuta = $peticion->identificacion;
+
+        // Eliminamos la petición
+        $peticion->delete();
+
+        // Eliminamos también el archivo asociado
+        if ($archivoRuta) {
+            Storage::delete('public/' . $archivoRuta);
+        }
+
+        // Almacenar mensaje de éxito en la sesión flash:
+        session()->flash('peticion', [true, 'La petición ha sido eliminada exitosamente.']);
+
+        return redirect()->route("noticia.periodista");
     }
 }

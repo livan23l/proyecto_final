@@ -22,6 +22,7 @@ class UserNoticiaLikeController extends Controller
             $like->delete();
             $liked = false;
             $noticia->decrement('votos_tot');
+            session()->flash('noticia', [false, 'Te ha dejado de gustar esta noticia']);
         } else {  // El usuario no ha dado like, lo añadimos
             UserNoticiaLike::create([
                 'user_id' => $user->id,
@@ -29,12 +30,9 @@ class UserNoticiaLikeController extends Controller
             ]);
             $liked = true;
             $noticia->increment('votos_tot');
+            session()->flash('noticia', [true, 'Has marcado que te gusta esta noticia']);
         }
 
-        // Volvemos al index:
-        $likes = UserNoticiaLike::all();
-        $categorias = Categoria::all();
-        $noticias = Noticia::orderBy('created_at', 'desc')->get();
-        return view("noticia.noticia_vista_index", compact("noticias", "categorias", "likes"));
+        return redirect()->route("noticias.ver");
     }
 }

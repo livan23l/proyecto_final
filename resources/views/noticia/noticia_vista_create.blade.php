@@ -8,7 +8,7 @@
                     @csrf
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="card-title text-center">Nuevo noticia</h1>
+                            <h1 class="card-title text-center">Nueva noticia</h1>
                             <hr />
 
                             <li class="list-group list-group-flush"> <!-- Titulo -->
