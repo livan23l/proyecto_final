@@ -13,7 +13,6 @@ class VotacionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Lógica para generar datos de votación ficticios
         Votacion::factory()->count(10)->create();
     }
 }

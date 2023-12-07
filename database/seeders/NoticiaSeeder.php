@@ -13,7 +13,6 @@ class NoticiaSeeder extends Seeder
      */
     public function run(): void
     {
-        // Lógica para generar datos de votación ficticios
-        Noticia::factory()->count(10)->create();
+        Noticia::factory()->count(15)->create();
     }
 }

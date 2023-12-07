@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CandidatoSeeder::class,
             VotacionSeeder::class,
+            NoticiaSeeder::class,
         ]);
     }
 }

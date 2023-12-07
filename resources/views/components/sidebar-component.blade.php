@@ -23,39 +23,44 @@
                 </a>
             </li>
 
-            <li class="nav-item"> <!-- Noticia -->
-                <a class="nav-link {{ request()->routeIs('noticia.*') ? '' : 'collapsed' }}" data-bs-target="#noticias-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-vector-pen"></i><span>Noticias</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="noticias-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    @if (auth()->user() && auth()->user()->role == 'Ciudadano')
-                        <li>
-                            <a href="{{ route('noticia.periodista') }}" class="{{ request()->routeIs('noticia.periodista') ? 'active' : '' }}">
-                                <i class="bi bi-circle"></i><span>Volverme periodista</span>
-                            </a>
-                        </li>
-                    @endif
-                    @if (auth()->user() && (auth()->user()->role == 'Periodista'))
-                        <li>
-                            <a href="{{ route('noticia.index') }}" class="{{ request()->routeIs('noticia.index') ? 'active' : '' }}">
-                                <i class="bi bi-circle"></i><span>Mis noticias</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('noticia.create') }}" class="{{ request()->routeIs('noticia.create') ? 'active' : '' }}">
-                                <i class="bi bi-circle active"></i><span>Publicar nueva</span>
-                            </a>
-                        </li>
-                    @endif
-                    @if (auth()->user() && auth()->user()->role == 'Administrador')
-                        <li>
-                            <a href="#" class="">
-                                <i class="bi bi-circle active"></i><span>Validar periodistas (Sin terminar)</span>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </li>
+            @if (auth()->user()) <!-- Solo se mostrarán las opciones si está autenticado -->
+                <li class="nav-item"> <!-- Noticia -->
+                    <a class="nav-link {{ request()->routeIs('noticia.*') ? '' : 'collapsed' }}" data-bs-target="#noticias-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-vector-pen"></i><span>Noticias</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="noticias-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <!-- Opciones para ciudadano -->
+                        @if (auth()->user() && auth()->user()->role == 'Ciudadano')
+                            <li>
+                                <a href="{{ route('noticia.periodista') }}" class="{{ request()->routeIs('noticia.periodista') ? 'active' : '' }}">
+                                    <i class="bi bi-circle"></i><span>Volverme periodista</span>
+                                </a>
+                            </li>
+                        @endif
+                        <!-- Opciones para periodista -->
+                        @if (auth()->user() && auth()->user()->role == 'Periodista')
+                            <li>
+                                <a href="{{ route('noticia.index') }}" class="{{ request()->routeIs('noticia.index') ? 'active' : '' }}">
+                                    <i class="bi bi-circle"></i><span>Mis noticias</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('noticia.create') }}" class="{{ request()->routeIs('noticia.create') ? 'active' : '' }}">
+                                    <i class="bi bi-circle active"></i><span>Publicar nueva</span>
+                                </a>
+                            </li>
+                        @endif
+                        <!-- Opciones para administrador -->
+                        @if (auth()->user() && auth()->user()->role == 'Administrador')
+                            <li>
+                                <a href="#" class="">
+                                    <i class="bi bi-circle active"></i><span>Validar periodistas (Sin terminar)</span>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
 
             @if (auth()->user() && auth()->user()->role == 'Administrador')
                 <hr />

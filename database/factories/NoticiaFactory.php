@@ -17,14 +17,21 @@ class NoticiaFactory extends Factory
      */
     public function definition(): array
     {
-        $zona = Estado::inRandomOrder()->first();
+        $estado = Estado::inRandomOrder()->first();
+
+        $titulo = $this->faker->sentence;
+        $contenido = $this->faker->paragraph;
+        $origen = $this->faker->randomElement(['Federal', 'Estatal']);
+        $zona = $estado->nombre;
+        $votos_tot = $this->faker->numberBetween(100, 1000);
+        $categ_select = $this->faker->paragraph;
 
         return [
-            'titulo' => $this->faker->sentence,
-            'contenido' => $this->faker->paragraph,
-            'origen' => $this->faker->randomElement(['Federal', 'Estatal']),
-            'zona' => $zona->nombre,
-            'votos_tot' => $this->faker->numberBetween(100, 1000),
+            'titulo' => $titulo,
+            'contenido' => $contenido,
+            'origen' => $origen,
+            'zona' => $zona,
+            'votos_tot' => $votos_tot,
             'categ_select' => $this->faker->paragraph,
         ];
     }
